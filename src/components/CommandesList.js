@@ -40,16 +40,10 @@ const CommandesList = () => {
                 Numéro
               </th>
               <th scope="col" className="px-6 py-3">
-                Product name
+                Date de commande
               </th>
               <th scope="col" className="px-6 py-3">
-                Color
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Category
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Price
+                Numéro client
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
@@ -76,14 +70,19 @@ const CommandesList = () => {
                     {commande.dateCommande}
                   </th>
                   <td className="px-6 py-4">{commande.idClient}</td>
-                  <td className="px-6 py-4">test</td>
-                  <td className="px-6 py-4">test</td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 space-x-2">
                     <a
                       href="#"
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
-                      Edit
+                      Modifier
+                    </a>
+
+                    <a
+                        href="#"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                        Supprimer
                     </a>
                   </td>
                 </tr>

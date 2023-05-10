@@ -1,13 +1,13 @@
 import { React } from "react";
 
-const TourneesList = () => {
+const VehiculesList = () => {
 
     return (
         <div>
             <header className="bg-white shadow">
                 <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-                        Tournées
+                        Véhicules
                     </h1>
                 </div>
             </header>
@@ -17,13 +17,13 @@ const TourneesList = () => {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">
-                            Numéro
+                            Numéro d'immatriculation
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Date de tournée
+                            Capacité maximale
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Destination
+                            Type
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Action
@@ -70,4 +70,4 @@ const TourneesList = () => {
     );
 };
 
-export default TourneesList;
+export default VehiculesList;

@@ -5,6 +5,9 @@ import Navbar from "./components/Navbar";
 import LoginForm from "./components/LoginForm";
 import CommandesList from "./components/CommandesList";
 import TourneesList from "./components/TourneesList";
+import VehiculesList from "./components/VehiculesList";
+import ProduitList from "./components/ProduitList";
+import Error404 from "./components/404";
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/commandes" element={<CommandesList />} />
           <Route path="/tournees" element={<TourneesList />} />
+          <Route path="/vehicules" element={<VehiculesList />} />
+          <Route path="/produits" element={<ProduitList />} />
+          <Route path="*" element={<Error404/>} />
         </Routes>
       </BrowserRouter>
     </>
