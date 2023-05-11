@@ -6,7 +6,8 @@ class AuthService {
     login(username, password) {
         axios.post(API_URL + "/login", {
             username: username,
-            password: password})
+            password: password
+        })
             .then((response) => {
                 console.log(response);
                 if (response.status === 400) {
@@ -19,7 +20,10 @@ class AuthService {
                 }
             })
             .catch(error => {
-                console.log("Invalid username or password");
+                switch (error.response.status) {
+                    case 400:
+                        console.log("ERROR 400 : " + error.response.data);
+                }
             });
 
     }

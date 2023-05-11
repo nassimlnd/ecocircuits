@@ -3,7 +3,13 @@ import axios from "axios";
 const API_URL = "http://localhost:9020/api/commandes";
 
 class CommandesService {
-  getCommandes() {
+  async getCommandes() {
+    try {
+      return await CommandesService.getCommandes();
+    } catch (error) {
+      console.log(error);
+    }
+
     return axios.get(API_URL);
   }
 

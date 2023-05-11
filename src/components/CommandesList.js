@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 //import { useNavigate } from "react-router-dom";
 import CommandesService from "../services/CommandesService";
 
-const CommandesList = () => {
+function CommandesList() {
   //const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
@@ -11,12 +11,8 @@ const CommandesList = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      try {
-        const response = await CommandesService.getCommandes();
-        setCommandes(response.data);
-      } catch (error) {
-        console.log(error);
-      }
+      const response = await CommandesService.getCommandes();
+      setCommandes(response.data);
       setLoading(false);
     };
     fetchData();
@@ -93,6 +89,6 @@ const CommandesList = () => {
       </div>
     </div>
   );
-};
+}
 
 export default CommandesList;
