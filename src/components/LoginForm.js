@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/big_logo.png";
+import logo from "../logo.png";
 import AuthService from "../services/AuthService";
 
 function onLogin() {
@@ -14,16 +14,23 @@ function onLogin() {
 }
 
 const LoginForm = () => {
+
+  if (window.location.pathname === "/logout" && localStorage.getItem("user")) {
+    AuthService.logout();
+    window.location.href = "/login";
+  }
+
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            className="mx-auto h-20 w-auto"
+            className="mx-auto h-28 w-auto"
             src={logo}
-            alt="Your Company"
+            alt="EcoCircuits"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Connexion à votre compte
           </h2>
         </div>

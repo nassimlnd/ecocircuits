@@ -4,6 +4,7 @@ import {Disclosure, Menu, Transition} from "@headlessui/react";
 import {Bars3Icon, XMarkIcon, BellIcon} from "@heroicons/react/24/outline";
 import logo from "../logo2.png";
 import homeLogo from "../loog_home2.png";
+import avatarLogo from "../assets/avatar.png";
 
 
 function classNames(...classes) {
@@ -11,15 +12,19 @@ function classNames(...classes) {
 }
 
 function Navbar() {
-    const [activePage, setActivePage] = useState("/dashboard");
+    const [activePage, setActivePage] = useState("/");
     const user = localStorage.getItem("user");
 
     let navigation = null;
 
+    console.log(activePage);
+
     if (user === null) {
         navigation = [
-            {name: "Accueil", href: "/", current: activePage === "/"},
-            {name: "Connexion", href: "/login", current: activePage === "/login"},
+            {name: "Accueil", href: "/", current: activePage === "/" || activePage === "/home"},
+            {name: "À propos", href: "/aboutus", current: activePage === "/aboutus"},
+            {name: "Fonctionnalités", href: "/fonctionnalites", current: activePage === "/fonctionnalites"},
+            {name: "Contact", href: "/contact", current: activePage === "/contact"},
         ];
     } else {
         navigation = [
@@ -32,13 +37,12 @@ function Navbar() {
     }
 
 
-
     useEffect(() => {
         setActivePage(window.location.pathname);
     }, []);
 
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className={/*activePage === "/" ? ("bg-white") : ("bg-gray-800")*/ "bg-gray-800"}>
             {({open}) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -55,8 +59,8 @@ function Navbar() {
                                     )}
                                 </Disclosure.Button>
                             </div>
-                            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                                <div className="flex flex-shrink-0 items-center">
+                            <div className="flex sm:flex-2 flex-1 items-center justify-center sm:items-stretch">
+                                <div className="sm:absolute sm:align-middle sm:inset-y-0 sm:left-0 flex flex-shrink-0 items-center">
                                     <img className="block h-8 w-auto lg:hidden"
                                          src={logo}
                                          alt="Workflow"/>
@@ -93,13 +97,13 @@ function Navbar() {
                                         user ? (
                                             <div
                                                 className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                                <button
+                                                {/*<button
                                                     type="button"
                                                     className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                                 >
                                                     <span className="sr-only">View notifications</span>
                                                     <BellIcon className="h-6 w-6" aria-hidden="true"/>
-                                                </button>
+                                                </button>*/}
 
                                                 {/* Profile dropdown */}
                                                 <Menu as="div" className="relative ml-3">
@@ -109,7 +113,7 @@ function Navbar() {
                                                             <span className="sr-only">Open user menu</span>
                                                             <img
                                                                 className="h-8 w-8 rounded-full"
-                                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                                src={avatarLogo}
                                                                 alt=""
                                                             />
                                                         </Menu.Button>
