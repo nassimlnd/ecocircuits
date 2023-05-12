@@ -1,15 +1,11 @@
-import axios from "axios";
+import getInstance from "../helpers/axios_helper";
+
+let axios = getInstance();
 
 const API_URL = "http://localhost:9020/api/commandes";
 
 class CommandesService {
   async getCommandes() {
-    try {
-      return await CommandesService.getCommandes();
-    } catch (error) {
-      console.log(error);
-    }
-
     return axios.get(API_URL);
   }
 

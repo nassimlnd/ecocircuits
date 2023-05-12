@@ -1,9 +1,12 @@
 import { React, useEffect, useState } from "react";
-//import { useNavigate } from "react-router-dom";
 import CommandesService from "../services/CommandesService";
+import AuthService from "../services/AuthService";
 
 function CommandesList() {
-  //const navigate = useNavigate();
+
+  if (!AuthService.getCurrentUser()) {
+    window.location.href = "/login";
+  }
 
   const [loading, setLoading] = useState(true);
   const [commandes, setCommandes] = useState([]);

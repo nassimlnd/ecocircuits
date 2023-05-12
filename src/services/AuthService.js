@@ -28,8 +28,56 @@ class AuthService {
 
     }
 
+    registerProd(username, password, email) {
+        axios.post(API_URL + "/register", {
+            username: username,
+            password: password,
+            email: email,
+            "roles": ["prod"]
+        })
+            .then((response) => {
+                window.location.href = "/login";
+                return response.data;
+
+            })
+            .catch(error => {
+                switch (error.response.status) {
+                    case 400:
+                        console.log("ERROR 400 : " + error.response.data);
+                }
+            });
+    }
+
+    registerOrga(username, password, email) {
+        axios.post(API_URL + "/register", {
+            username: username,
+            password: password,
+            email: email,
+            "roles": ["orga"]
+        })
+            .then((response) => {
+                window.location.href = "/login";
+                return response.data;
+
+            })
+            .catch(error => {
+                switch (error.response.status) {
+                    case 400:
+                        console.log("ERROR 400 : " + error.response.data);
+                }
+            });
+    }
+
     logout() {
         localStorage.removeItem("user");
+    }
+
+    getAuthHeader() {
+        return {Authorization: "Bearer " + JSON.parse(localStorage.getItem('user')).accessToken};
+    }
+
+    getCurrentUser() {
+        return JSON.parse(localStorage.getItem('user'));
     }
 
 }
