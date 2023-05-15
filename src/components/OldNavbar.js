@@ -3,7 +3,7 @@ import {Fragment} from "react";
 import {Disclosure, Menu, Transition} from "@headlessui/react";
 import {Bars3Icon, XMarkIcon, BellIcon} from "@heroicons/react/24/outline";
 import logo from "../logo2.png";
-import homeLogo from "../loog_home2.png";
+import homeLogo from "../assets/long_logo.png";
 import avatarLogo from "../assets/avatar.png";
 
 
@@ -11,28 +11,26 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-function Navbar() {
+function NavbarX() {
     const [activePage, setActivePage] = useState("/");
-    const user = localStorage.getItem("user");
+    const user = JSON.parse(localStorage.getItem("user"));
 
     let navigation = null;
-
-    console.log(activePage);
 
     if (user === null) {
         navigation = [
             {name: "Accueil", href: "/", current: activePage === "/" || activePage === "/home"},
             {name: "À propos", href: "/aboutus", current: activePage === "/aboutus"},
-            {name: "Fonctionnalités", href: "/fonctionnalites", current: activePage === "/fonctionnalites"},
+            {name: "Fonctionnalités", href: "/features", current: activePage === "/features"},
             {name: "Contact", href: "/contact", current: activePage === "/contact"},
         ];
     } else {
         navigation = [
             {name: "Tableau de bord", href: "/dashboard", current: activePage === "/dashboard"},
-            {name: "Commandes", href: "/commandes", current: activePage === "/commandes"},
-            {name: "Tournées", href: "/tournees", current: activePage === "/tournees"},
+            {name: "Commandes", href: "/orders", current: activePage === "/orders"},
+            {name: "Tournées", href: "/deliveries", current: activePage === "/deliveries"},
             {name: "Véhicules", href: "/vehicules", current: activePage === "/vehicules"},
-            {name: "Produits", href: "/produits", current: activePage === "/produits"},
+            {name: "Produits", href: "/products", current: activePage === "/products"},
         ];
     }
 
@@ -60,7 +58,8 @@ function Navbar() {
                                 </Disclosure.Button>
                             </div>
                             <div className="flex sm:flex-2 flex-1 items-center justify-center sm:items-stretch">
-                                <div className="sm:absolute sm:align-middle sm:inset-y-0 sm:left-0 flex flex-shrink-0 items-center">
+                                <div
+                                    className="sm:absolute sm:align-middle sm:inset-y-0 sm:left-0 flex flex-shrink-0 items-center">
                                     <img className="block h-8 w-auto lg:hidden"
                                          src={logo}
                                          alt="Workflow"/>
@@ -129,6 +128,12 @@ function Navbar() {
                                                     >
                                                         <Menu.Items
                                                             className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                            <div className="px-4 py-2 text-sm border-b">
+                                                                <span
+                                                                    className="block text-sm text-gray-900 dark:text-white">{user.username}</span>
+                                                                <span
+                                                                    className="block text-sm  text-gray-500 truncate dark:text-gray-400">{user.email}</span>
+                                                            </div>
                                                             <Menu.Item>
                                                                 {({active}) => (
                                                                     <a
@@ -166,7 +171,7 @@ function Navbar() {
                                         ) : (
                                             <button className={classNames(
                                                 "flex bg-blue-600 text-white hover:bg-blue-500 hover:text-white",
-                                                "rounded-md px-3 py-2 text-sm font-medium space-x-2"
+                                                "rounded-md px-3 py-2 text-sm font-medium space-x-2 text-center inline-block"
                                             )}
                                                     onClick={
                                                         () => {
@@ -174,12 +179,13 @@ function Navbar() {
                                                         }
                                                     }
                                             >
-                                                <span>Connexion</span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                     <path strokeLinecap="round" strokeLinejoin="round"
-                                                          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/>
+                                                          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/>
                                                 </svg>
+
+                                                <span>Connexion</span>
                                             </button>
                                         )
                                     }
@@ -213,8 +219,7 @@ function Navbar() {
                 </>
             )}
         </Disclosure>
-    )
-        ;
+    );
 }
 
-export default Navbar;
+export default NavbarX;

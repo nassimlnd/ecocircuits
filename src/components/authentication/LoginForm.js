@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "../logo.png";
-import AuthService from "../services/AuthService";
+import logo from "../../logo.png";
+import AuthService from "../../services/AuthService";
 
 function onLogin() {
   const identifiant = document.getElementById("identifiant").value;
@@ -20,6 +20,12 @@ const LoginForm = () => {
     window.location.href = "/login";
   }
 
+  const handleEnter = (event) => {
+    if (event.key === 'Enter') {
+      onLogin();
+    }
+  }
+
 
   return (
     <>
@@ -30,17 +36,17 @@ const LoginForm = () => {
             src={logo}
             alt="EcoCircuits"
           />
-          <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
             Connexion à votre compte
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="http://localhost:9020/api/auth/login" method="POST">
+          <form className="space-y-6">
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
               >
                 Identifiant
               </label>
@@ -50,8 +56,10 @@ const LoginForm = () => {
                   name="identifiant"
                   type="text"
                   autoComplete="identifiant"
+                  placeholder="Identifiant"
                   required
-                  className="block w-full rounded-md px-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  onKeyDown={handleEnter}
                 />
               </div>
             </div>
@@ -60,7 +68,7 @@ const LoginForm = () => {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Mot de passe
                 </label>
@@ -80,7 +88,9 @@ const LoginForm = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder="••••••••"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    onKeyDown={handleEnter}
                 />
               </div>
             </div>
