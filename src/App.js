@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/App.css";
 import Dashboard from "./components/Dashboard";
 import LoginForm from "./components/authentication/LoginForm";
-import CommandesList from "./components/CommandesList";
+import Orders from "./pages/Orders";
 import TourneesList from "./components/TourneesList";
 import VehiculesList from "./components/VehiculesList";
 import ProduitList from "./components/ProduitList";
@@ -16,6 +16,8 @@ import NavConnected from "./components/NavConnected";
 import Sidenav from "./components/Sidenav";
 import React from "react";
 import FooterConnected from "./components/FooterConnected";
+import ConnectedLayout from "./layouts/ConnectedLayout";
+import {Navbar} from "flowbite-react";
 
 function App() {
     const user = AuthService.getCurrentUser();
@@ -45,25 +47,16 @@ function App() {
                     </>) : (
                     <>
                         <div className="flex-grow">
-                            <div className="flex pt-16 items-start">
-                                <aside
-                                    className="flex fixed top-0 left-0 z-20 flex-col flex-shrink-0 pt-16 h-full duration-75 border-r border-gray-200 lg:flex transition-width dark:border-gray-700 w-64">
-                                    <Sidenav/>
-                                </aside>
-                                <div className="relative h-full w-full overflow-y-auto bg-gray-50 dark:bg-gray-900 lg:ml-64">
-                                    <Routes>
-                                        <Route path="/dashboard" element={<Dashboard/>}/>
-                                        <Route path="/orders" element={<CommandesList/>}/>
-                                        <Route path="/deliveries" element={<TourneesList/>}/>
-                                        <Route path="/vehicules" element={<VehiculesList/>}/>
-                                        <Route path="/products" element={<ProduitList/>}/>
-                                        <Route path="/logout" element={<LoginForm/>}/>
-                                        <Route path="*" element={<Error404/>}/>
-                                    </Routes>
-                                </div>
-                            </div>
+                            <Routes>
+                                <Route path="/dashboard" element={<Dashboard/>}/>
+                                <Route path="/orders" element={<Orders/>}/>
+                                <Route path="/deliveries" element={<TourneesList/>}/>
+                                <Route path="/vehicules" element={<VehiculesList/>}/>
+                                <Route path="/products" element={<ProduitList/>}/>
+                                <Route path="/logout" element={<LoginForm/>}/>
+                                <Route path="*" element={<Error404/>}/>
+                            </Routes>
                         </div>
-                        <FooterConnected/>
                     </>
                 )
                 }

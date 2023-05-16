@@ -1,20 +1,18 @@
 import React from "react";
 import Sidenav from "./Sidenav";
+import ConnectedLayout from "../layouts/ConnectedLayout";
 
-const Dashboard = () => {
+function Dashboard() {
 
-    return <div className="flex pt-16 items-start">
-
-        <main>
-            <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                <div className="px-4 py-6 sm:px-0">
-                    <div className="border-4 border-dashed border-gray-200 rounded-lg h-96">
-
-                    </div>
-                </div>
+    return (
+        <ConnectedLayout>
+            <div className="flex items-center">
+                <main>
+                    <h1>Tableau de bord</h1>
+                </main>
             </div>
-        </main>
-    </div>
+        </ConnectedLayout>
+    )
 }
 
 export default Dashboard;
