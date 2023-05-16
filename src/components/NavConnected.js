@@ -8,7 +8,7 @@ function NavConnected() {
 
     return (
         <div className="items-center dark:bg-gray-800">
-            <Navbar fluid={true} rounded={false}>
+            <Navbar fluid={true} rounded={false} className="fixed z-30 w-full bg-white border-b border-gray-200 h-16 py-3.5 dark:bg-gray-800 dark:border-gray-700">
                 <Navbar.Brand>
                     <img
                         src={feuille}
