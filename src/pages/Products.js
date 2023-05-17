@@ -110,7 +110,7 @@ function Products() {
                         <Table.Body className="divide-y">
                             {products.map((product) => (
                                 <Table.Row
-                                    className="cursor-pointer bg-white dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
+                                    className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
                                     key={product.id}
                                     onClick={() => window.location.href = "/product/" + product.id}>
                                     <Table.Cell>
