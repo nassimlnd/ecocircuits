@@ -1,5 +1,5 @@
 import {React, useEffect, useState} from "react";
-import {Breadcrumb, Button, Table} from "flowbite-react";
+import {Breadcrumb, Button, Spinner, Table} from "flowbite-react";
 import CommandesService from "../services/OrdersService";
 import AuthService from "../services/AuthService";
 import ConnectedLayout from "../layouts/ConnectedLayout";
@@ -82,7 +82,7 @@ function Orders() {
                 </div>
             </div>
             <div>
-                <div className="relative overflow-x-auto sm:rounded-lg">
+                {!loading ? (<div className="relative overflow-x-auto sm:rounded-lg">
                     <Table hoverable={true}>
                         <Table.Head>
                             <Table.HeadCell>
@@ -101,10 +101,12 @@ function Orders() {
                           </span>
                             </Table.HeadCell>
                         </Table.Head>
-                        {!loading ? (<Table.Body className="divide-y">
+                        <Table.Body className="divide-y">
                             {commandes.map((commande) => (
-                                <Table.Row className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700" key={commande.id}
-                                           onClick={() => window.location.href = "/order/" + commande.id}>
+                                <Table.Row
+                                    className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
+                                    key={commande.id}
+                                    onClick={() => window.location.href = "/order/" + commande.id}>
                                     <Table.Cell>
                                         {commande.id}
                                     </Table.Cell>
@@ -126,9 +128,18 @@ function Orders() {
                                     </Table.Cell>
                                 </Table.Row>
                             ))}
-                        </Table.Body>) : null}
+                        </Table.Body>
                     </Table>
-                </div>
+                </div>) : (
+                    <div className="text-center pt-40 flex items-center justify-center space-x-3">
+                        <Spinner
+                            aria-label="Extra large spinner example"
+                            size="xl"
+                            className="text-center"
+                        />
+                        <span className="dark:text-white">Chargement...</span>
+                    </div>
+                )}
             </div>
         </div>
     </ConnectedLayout>);
