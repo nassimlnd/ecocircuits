@@ -10,17 +10,15 @@ function ConnectedLayout({children}) {
             <NavConnected/>
             <div className="flex items-start">
                 <aside
-                    className="flex fixed top-0 left-0 z-20 flex-col flex-shrink-0 pt-16 h-full duration-75 border-r border-gray-200 lg:flex transition-width dark:border-gray-700 w-64">
+                    className="flex fixed top-0 left-0 z-20 flex-col flex-shrink-0 pt-16 h-full duration-75 border-r border-gray-200 lg:flex transition-width rounded-none dark:border-gray-700 w-64">
                     <Sidenav/>
                 </aside>
                 <div className="relative h-full w-full overflow-y-auto bg-gray-50 dark:bg-gray-900 lg:ml-64">
-                    <div className="flex h-screen pt-16 px-4 flex-col">
-                        <div>
+                    <div className="flex h-screen pt-16  flex-col">
+                        {children}
+                        <div className="px-4 pt-4">
+                            <FooterConnected/>
                         </div>
-                        <div className="flex-grow">
-                            {children}
-                        </div>
-                        <FooterConnected s/>
                         <div className="my-4">
                             <p className="text-center dark:text-white">© 2023 EcoCircuits™ - Tous droits réservés.</p>
                         </div>

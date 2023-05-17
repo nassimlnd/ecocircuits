@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Sidebar} from "flowbite-react";
-import {HiChartPie, HiShoppingCart} from "react-icons/hi";
+import {HiChartPie, HiShoppingCart, HiTruck, HiUsers} from "react-icons/hi";
+import {FaShoppingBasket} from "react-icons/fa";
 
 function Sidenav() {
 
@@ -10,11 +11,16 @@ function Sidenav() {
         setActivePage(window.location.pathname);
     }, []);
 
+    useEffect(() => {
+        var element = document.querySelector('[aria-label="Sidebar"]');
+        element.children[0].classList.remove("rounded");
+    });
+
     return (
         <>
-            <Sidebar className="rounded-none">
-                <Sidebar.Items className="rounded-none">
-                    <Sidebar.ItemGroup className="rounded-none">
+            <Sidebar className="border-r border-gray-200 dark:border-gray-700 text-base font-normal">
+                <Sidebar.Items>
+                    <Sidebar.ItemGroup>
                         <Sidebar.Item
                             href="/dashboard"
                             icon={HiChartPie}
@@ -25,6 +31,28 @@ function Sidenav() {
                             icon={HiShoppingCart}
                             active={activePage === "/orders"}
                         >Commandes</Sidebar.Item>
+                        <Sidebar.Item
+                            href="/products"
+                            icon={FaShoppingBasket}
+                            active={activePage === "/products"}
+                        >Produits</Sidebar.Item>
+                        <Sidebar.Item
+                            href="/vehicules"
+                            icon={HiTruck}
+                            active={activePage === "/vehicules"}
+                        >Véhicules</Sidebar.Item>
+                    </Sidebar.ItemGroup>
+                    <Sidebar.ItemGroup>
+                        <Sidebar.Item
+                            href="/admin/users"
+                            icon={HiUsers}
+                            active={activePage === "/admin/users"}
+                        >Utilisateurs</Sidebar.Item>
+                        <Sidebar.Item
+                            href="/admin/producteurs"
+                            icon={HiShoppingCart}
+                            active={activePage === "/admin/producteurs"}
+                        >Producteurs</Sidebar.Item>
                     </Sidebar.ItemGroup>
                 </Sidebar.Items>
             </Sidebar>

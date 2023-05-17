@@ -1,9 +1,9 @@
 import {React, useEffect, useState} from "react";
-import {Breadcrumb, Table} from "flowbite-react";
+import {Breadcrumb, Button, Table} from "flowbite-react";
 import CommandesService from "../services/CommandesService";
 import AuthService from "../services/AuthService";
 import ConnectedLayout from "../layouts/ConnectedLayout";
-import {HiHome} from "react-icons/hi";
+import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
 
 function Orders() {
 
@@ -28,26 +28,65 @@ function Orders() {
         window.location.href = "/order/" + id;
     }
 
-    return (
-        <ConnectedLayout>
-            <div className="p">
-                <Breadcrumb
-                    aria-label="Solid background breadcrumb example"
-                    className="bg-gray-50 py-3 dark:bg-gray-900"
-                >
-                    <Breadcrumb.Item
-                        href="#"
-                        icon={HiHome}
+    return (<ConnectedLayout>
+        <div className="flex-grow dark:bg-gray-800 ">
+            <div
+                className="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+                <div className="mb-4">
+                    <Breadcrumb
+                        className="pb-3"
                     >
-                        Tableau de bord
-                    </Breadcrumb.Item>
-                    <Breadcrumb.Item href="#">
-                        Commandes
-                    </Breadcrumb.Item>
-                </Breadcrumb>
-                <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Commandes</h1>
+                        <Breadcrumb.Item
+                            href="#"
+                            icon={HiHome}
+                        >
+                            Tableau de bord
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item href="#">
+                            Commandes
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+                    <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Commandes</h1>
+                </div>
+                <div className="block items-center justify-between sm:flex">
+                    <div>
+                        <form className="flex items-center w-96">
+                            <label htmlFor="simple-search" className="sr-only">Rechercher une commande</label>
+                            <div className="relative w-full">
+                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                              clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <input type="text" id="simple-search"
+                                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                       placeholder="Rechercher une commande" required/>
+                            </div>
+                            <button type="submit"
+                                    className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                <span className="sr-only">Rechercher</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div>
+                        <Button>
+                            Ajouter une commande
+                        </Button>
+                    </div>
 
-                <div className="relative mt-5 overflow-x-auto shadow-md sm:rounded-lg">
+
+                </div>
+            </div>
+            <div>
+                <div className="relative overflow-x-auto sm:rounded-lg">
                     <Table hoverable={true}>
                         <Table.Head>
                             <Table.HeadCell>
@@ -66,39 +105,37 @@ function Orders() {
                           </span>
                             </Table.HeadCell>
                         </Table.Head>
-                        {!loading ? (
-                            <Table.Body className="divide-y">
-                                {commandes.map((commande) => (
-                                    <Table.Row className="cursor-pointer" key={commande.id}
-                                               onClick={() => window.location.href = "/order/" + commande.id}>
-                                        <Table.Cell>
-                                            {commande.id}
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            {commande.dateCommande}
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            {commande.clientId}
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            <a href={"/commandes/" + commande.id + "/edit"}>
-                                                <button
-                                                    type="button"
-                                                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue focus:border-blue-700 active:bg-blue-700 transition duration-150 ease-in-out"
-                                                >
-                                                    Modifier
-                                                </button>
-                                            </a>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                ))}
-                            </Table.Body>
-                        ) : null}
+                        {!loading ? (<Table.Body className="divide-y">
+                            {commandes.map((commande) => (
+                                <Table.Row className="cursor-pointer dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700" key={commande.id}
+                                           onClick={() => window.location.href = "/order/" + commande.id}>
+                                    <Table.Cell>
+                                        {commande.id}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {commande.dateCommande}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {commande.clientId}
+                                    </Table.Cell>
+                                    <Table.Cell className="flex space-x-2">
+                                        <Button>
+                                            <HiPencilAlt className="mr-2 text-lg"/>
+                                            Modifier
+                                        </Button>
+                                        <Button color="failure">
+                                            <HiTrash className="mr-2 text-lg"/>
+                                            Supprimer
+                                        </Button>
+                                    </Table.Cell>
+                                </Table.Row>
+                            ))}
+                        </Table.Body>) : null}
                     </Table>
                 </div>
             </div>
-        </ConnectedLayout>
-    );
+        </div>
+    </ConnectedLayout>);
 }
 
 export default Orders;
