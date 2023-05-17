@@ -54,7 +54,7 @@ function NavConnected() {
                         </Dropdown.Header>
 
                         <Dropdown.Item onClick={() => window.location.href = "/account"}>Mon compte</Dropdown.Item>
-                        <Dropdown.Item onClick={() => window.location.href = "/settings"}>Paramètre</Dropdown.Item>
+                        <Dropdown.Item onClick={() => window.location.href = "/settings"}>Paramètres</Dropdown.Item>
                         <Dropdown.Divider/>
                         <Dropdown.Item onClick={() => window.location.href = "/logout"}>Déconnexion</Dropdown.Item>
 

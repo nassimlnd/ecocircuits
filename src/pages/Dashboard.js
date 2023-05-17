@@ -1,5 +1,5 @@
 import React from "react";
-import Sidenav from "./Sidenav";
+import Sidenav from "../components/Sidenav";
 import ConnectedLayout from "../layouts/ConnectedLayout";
 
 function Dashboard() {
