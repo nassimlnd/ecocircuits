@@ -44,7 +44,7 @@ function Orders() {
                     </Breadcrumb>
                     <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Commandes</h1>
                 </div>
-                <div className="block items-center justify-between sm:flex">
+                <div className="block items-center justify-between space-y-2 sm:space-y-0 sm:flex">
                     <div>
                         <form className="flex items-center w-96">
                             <label htmlFor="simple-search" className="sr-only">Rechercher une commande</label>
