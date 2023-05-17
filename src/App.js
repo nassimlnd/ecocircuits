@@ -19,6 +19,7 @@ import FooterConnected from "./components/FooterConnected";
 import ConnectedLayout from "./layouts/ConnectedLayout";
 import {Navbar} from "flowbite-react";
 import AccountInfo from "./pages/AccountInfo";
+import OrdersDetails from "./pages/orders/OrdersDetails";
 
 function App() {
     const user = AuthService.getCurrentUser();
@@ -51,6 +52,7 @@ function App() {
                             <Routes>
                                 <Route path="/dashboard" element={<Dashboard/>}/>
                                 <Route path="/orders" element={<Orders/>}/>
+                                <Route path="/order/:id" element={<OrdersDetails />}/>
                                 <Route path="/deliveries" element={<TourneesList/>}/>
                                 <Route path="/vehicules" element={<Vehicules/>}/>
                                 <Route path="/products" element={<Products/>}/>

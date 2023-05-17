@@ -103,7 +103,7 @@ function Orders() {
                         </Table.Head>
                         {!loading ? (<Table.Body className="divide-y">
                             {commandes.map((commande) => (
-                                <Table.Row className="cursor-pointer dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700" key={commande.id}
+                                <Table.Row className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700" key={commande.id}
                                            onClick={() => window.location.href = "/order/" + commande.id}>
                                     <Table.Cell>
                                         {commande.id}
