@@ -1,11 +1,13 @@
 import {React, useEffect, useState} from "react";
 import AuthService from "../services/AuthService";
 import ConnectedLayout from "../layouts/ConnectedLayout";
-import {Breadcrumb, Button, Spinner, Table} from "flowbite-react";
+import {Breadcrumb, Button, Pagination, Spinner, Table} from "flowbite-react";
 import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
 import ProductsService from "../services/ProductsService";
 
 function Products() {
+
+    var [currentPage, setCurrentPage] = useState(1);
 
     if (!AuthService.getCurrentUser()) {
         window.location.href = "/login";
@@ -23,6 +25,17 @@ function Products() {
         };
         fetchData();
     }, []);
+
+    const handlePageChange = (event) => {
+        setCurrentPage(event.target.value);
+    }
+
+    var totalPages = Math.ceil(products.length / 10);
+
+    function paginate(array, page_size, page_number) {
+        // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
+        return array.slice((page_number - 1) * page_size, page_number * page_size);
+    }
 
     console.log(products);
 
@@ -142,6 +155,15 @@ function Products() {
                             ))}
                         </Table.Body>
                     </Table>
+
+                    <Pagination
+                        nextLabel="Suivant"
+                        previousLabel="Précédent"
+                        className="text-center"
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={(page) => {console.log(page)}}
+                    />
                 </div>) : (
                     <div className="text-center pt-40 flex items-center justify-center space-x-3">
                         <Spinner
