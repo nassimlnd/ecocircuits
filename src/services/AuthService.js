@@ -1,6 +1,8 @@
-import axios from "axios";
+import getInstance from "../helpers/axios_helper";
 
-const API_URL = "http://localhost:9020/api/auth";
+let axios = getInstance();
+
+const API_URL = axios.defaults.baseURL + "/auth";
 
 class AuthService {
     login(username, password) {
