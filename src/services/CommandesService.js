@@ -2,7 +2,7 @@ import getInstance from "../helpers/axios_helper";
 
 let axios = getInstance();
 
-const API_URL = "https://ecocircuitsapi-ecocircuits.azuremicroservices.io/api/commandes";
+const API_URL = "http://localhost:9020/api/commandes";
 
 class CommandesService {
   async getCommandes() {

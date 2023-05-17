@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://ecocircuitsapi-ecocircuits.azuremicroservices.io/api/auth";
+const API_URL = "http://localhost:9020/api/auth";
 
 class AuthService {
     login(username, password) {
