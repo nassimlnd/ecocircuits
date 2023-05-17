@@ -4,8 +4,8 @@ import Dashboard from "./components/Dashboard";
 import LoginForm from "./components/authentication/LoginForm";
 import Orders from "./pages/Orders";
 import TourneesList from "./components/TourneesList";
-import VehiculesList from "./components/VehiculesList";
-import ProduitList from "./components/ProduitList";
+import Vehicules from "./pages/Vehicules";
+import Products from "./pages/Products";
 import Error404 from "./components/error/404";
 import Home from "./pages/Home";
 import AuthService from "./services/AuthService";
@@ -51,8 +51,8 @@ function App() {
                                 <Route path="/dashboard" element={<Dashboard/>}/>
                                 <Route path="/orders" element={<Orders/>}/>
                                 <Route path="/deliveries" element={<TourneesList/>}/>
-                                <Route path="/vehicules" element={<VehiculesList/>}/>
-                                <Route path="/products" element={<ProduitList/>}/>
+                                <Route path="/vehicules" element={<Vehicules/>}/>
+                                <Route path="/products" element={<Products/>}/>
                                 <Route path="/logout" element={<LoginForm/>}/>
                                 <Route path="*" element={<Error404/>}/>
                             </Routes>

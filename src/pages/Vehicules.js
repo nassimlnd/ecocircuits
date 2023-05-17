@@ -1,28 +1,28 @@
 import {React, useEffect, useState} from "react";
-import {Breadcrumb, Button, Table} from "flowbite-react";
-import CommandesService from "../services/OrdersService";
 import AuthService from "../services/AuthService";
+import VehiculesService from "../services/VehiculesService";
 import ConnectedLayout from "../layouts/ConnectedLayout";
+import {Breadcrumb, Button, Spinner, Table} from "flowbite-react";
 import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
 
-function Orders() {
-
+const Vehicules = () => {
     if (!AuthService.getCurrentUser()) {
         window.location.href = "/login";
     }
 
     const [loading, setLoading] = useState(true);
-    const [commandes, setCommandes] = useState([]);
+    const [vehicules, setVehicules] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const response = await CommandesService.getCommandes();
-            setCommandes(response.data);
+            const response = await VehiculesService.getVehicules();
+            setVehicules(response.data);
             setLoading(false);
         };
         fetchData();
     }, []);
+
 
     return (<ConnectedLayout>
         <div className="flex-grow dark:bg-gray-800 ">
@@ -33,39 +33,39 @@ function Orders() {
                         className="pb-3"
                     >
                         <Breadcrumb.Item
-                            href="#"
+                            href="/dashboard"
                             icon={HiHome}
                         >
                             Tableau de bord
                         </Breadcrumb.Item>
-                        <Breadcrumb.Item href="#">
-                            Commandes
+                        <Breadcrumb.Item>
+                            Véhicules
                         </Breadcrumb.Item>
                     </Breadcrumb>
-                    <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Commandes</h1>
+                    <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Véhicules</h1>
                 </div>
                 <div className="block items-center justify-between sm:flex">
                     <div>
                         <form className="flex items-center w-96">
-                            <label htmlFor="simple-search" className="sr-only">Rechercher une commande</label>
+                            <label htmlFor="simple-search" className="sr-only">Rechercher un véhicule</label>
                             <div className="relative w-full">
                                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                     <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400"
                                          fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
+                                        <path fillRule="evenodd"
                                               d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                              clip-rule="evenodd"></path>
+                                              clipRule="evenodd"></path>
                                     </svg>
                                 </div>
                                 <input type="text" id="simple-search"
                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                       placeholder="Rechercher une commande" required/>
+                                       placeholder="Rechercher un véhicule" required/>
                             </div>
                             <button type="submit"
                                     className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                      xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                           d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
                                 <span className="sr-only">Rechercher</span>
@@ -73,8 +73,8 @@ function Orders() {
                         </form>
                     </div>
                     <div>
-                        <Button>
-                            Ajouter une commande
+                        <Button onClick={() => {console.log("click")}}>
+                            Ajouter un véhicule
                         </Button>
                     </div>
 
@@ -82,37 +82,48 @@ function Orders() {
                 </div>
             </div>
             <div>
-                <div className="relative overflow-x-auto sm:rounded-lg">
+                {!loading ? (<div className="relative overflow-x-auto sm:rounded-lg">
                     <Table hoverable={true}>
                         <Table.Head>
                             <Table.HeadCell>
                                 Numéro
                             </Table.HeadCell>
                             <Table.HeadCell>
-                                Date de commande
+                                Numéro d'immatriculation
                             </Table.HeadCell>
                             <Table.HeadCell>
-                                Numéro du client
+                                Capacité maximale
+                            </Table.HeadCell>
+                            <Table.HeadCell>
+                                Type
+                            </Table.HeadCell>
+                            <Table.HeadCell>
+                                Producteur propriétaire
                             </Table.HeadCell>
                             <Table.HeadCell>
                                 Actions
-                                <span className="sr-only">
-                            Edit
-                          </span>
                             </Table.HeadCell>
                         </Table.Head>
-                        {!loading ? (<Table.Body className="divide-y">
-                            {commandes.map((commande) => (
-                                <Table.Row className="cursor-pointer dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700" key={commande.id}
-                                           onClick={() => window.location.href = "/order/" + commande.id}>
+                        <Table.Body className="divide-y">
+                            {vehicules.map((vehicule) => (
+                                <Table.Row
+                                    className="cursor-pointer bg-white dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
+                                    key={vehicule.id}
+                                    onClick={() => window.location.href = "/product/" + vehicule.id}>
                                     <Table.Cell>
-                                        {commande.id}
+                                        {vehicule.id}
                                     </Table.Cell>
                                     <Table.Cell>
-                                        {commande.dateCommande}
+                                        {vehicule.matricule}
                                     </Table.Cell>
                                     <Table.Cell>
-                                        {commande.clientId}
+                                        {vehicule.capacite}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {vehicule.type}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {vehicule.producteur}
                                     </Table.Cell>
                                     <Table.Cell className="flex space-x-2">
                                         <Button>
@@ -126,12 +137,21 @@ function Orders() {
                                     </Table.Cell>
                                 </Table.Row>
                             ))}
-                        </Table.Body>) : null}
+                        </Table.Body>
                     </Table>
-                </div>
+                </div>) : (
+                    <div className="text-center pt-40 flex items-center justify-center space-x-3">
+                        <Spinner
+                            aria-label="Extra large spinner example"
+                            size="xl"
+                            className="text-center"
+                        />
+                        <span className="">Chargement...</span>
+                    </div>
+                )}
             </div>
         </div>
     </ConnectedLayout>);
-}
+};
 
-export default Orders;
+export default Vehicules;

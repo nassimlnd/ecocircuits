@@ -2,9 +2,9 @@ import getInstance from "../helpers/axios_helper";
 
 let axios = getInstance();
 
-const API_URL = "http://localhost:9020/api/commandes";
+const API_URL = axios.defaults.baseURL + "/commandes";
 
-class CommandesService {
+class OrdersService {
   async getCommandes() {
     return axios.get(API_URL);
   }
@@ -25,4 +25,4 @@ class CommandesService {
     return axios.delete(API_URL + "/" + id);
   }
 }
-export default new CommandesService();
+export default new OrdersService();
