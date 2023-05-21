@@ -50,6 +50,7 @@ function App() {
                     <>
                         <div className="flex-grow">
                             <Routes>
+                                <Route index element={<Dashboard/>}/>
                                 <Route path="/dashboard" element={<Dashboard/>}/>
                                 <Route path="/orders" element={<Orders/>}/>
                                 <Route path="/order/:id" element={<OrdersDetails />}/>
