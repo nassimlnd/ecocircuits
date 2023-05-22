@@ -2,10 +2,10 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/App.css";
 import Dashboard from "./pages/Dashboard";
 import LoginForm from "./components/authentication/LoginForm";
-import Orders from "./pages/Orders";
+import Orders from "./pages/organisateur/Orders";
 import TourneesList from "./pages/TourneesList";
 import Vehicules from "./pages/Vehicules";
-import Products from "./pages/Products";
+import Products from "./pages/organisateur/Products";
 import Error404 from "./components/error/404";
 import Home from "./pages/Home";
 import AuthService from "./services/AuthService";
@@ -20,6 +20,7 @@ import ConnectedLayout from "./layouts/ConnectedLayout";
 import {Navbar} from "flowbite-react";
 import AccountInfo from "./pages/AccountInfo";
 import OrdersDetails from "./pages/orders/OrdersDetails";
+import CreateOrder from "./pages/organisateur/CreateOrder";
 
 function App() {
     const user = AuthService.getCurrentUser();
@@ -54,6 +55,7 @@ function App() {
                                 <Route path="/dashboard" element={<Dashboard/>}/>
                                 <Route path="/orders" element={<Orders/>}/>
                                 <Route path="/order/:id" element={<OrdersDetails />}/>
+                                <Route path="/orders/create" element={<CreateOrder />}/>
                                 <Route path="/deliveries" element={<TourneesList/>}/>
                                 <Route path="/vehicules" element={<Vehicules/>}/>
                                 <Route path="/products" element={<Products/>}/>

@@ -1,22 +1,16 @@
-import {Fragment, React, useEffect, useRef, useState} from "react";
-import AuthService from "../services/AuthService";
-import ConnectedLayout from "../layouts/ConnectedLayout";
-import {Breadcrumb, Button, Pagination, Spinner, Table} from "flowbite-react";
-import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
-import ProductsService from "../services/ProductsService";
-import AddProductModal from "../components/products/AddProductModal";
-import {Dialog, Transition} from "@headlessui/react";
-import DeleteProductModal from "../components/products/DeleteProductModal";
-import EditProductModal from "../components/products/EditProductModal";
+import {React, useEffect, useRef, useState} from "react";
+import AuthService from "../../services/AuthService";
+import ConnectedLayout from "../../layouts/ConnectedLayout";
+import {Breadcrumb, Pagination, Spinner, Table} from "flowbite-react";
+import {HiHome} from "react-icons/hi";
+import ProductsService from "../../services/ProductsService";
+import AddProductModal from "../../components/products/AddProductModal";
+import DeleteProductModal from "../../components/products/DeleteProductModal";
+import EditProductModal from "../../components/products/EditProductModal";
 
 function Products() {
 
     var [currentPage, setCurrentPage] = useState(1);
-    var [addProductModal, setAddProductModal] = useState(false);
-    var [editModal, setEditModal] = useState(false);
-    var [deleteModal, setDeleteModal] = useState(false);
-
-    const cancelButtonRef = useRef(null);
 
 
     if (!AuthService.getCurrentUser()) {
@@ -42,6 +36,8 @@ function Products() {
         // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
         return array.slice((page_number - 1) * page_size, page_number * page_size);
     }
+
+    console.log(products[1])
 
 
     return (<ConnectedLayout>
