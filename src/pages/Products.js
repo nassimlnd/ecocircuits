@@ -7,6 +7,7 @@ import ProductsService from "../services/ProductsService";
 import AddProductModal from "../components/products/AddProductModal";
 import {Dialog, Transition} from "@headlessui/react";
 import DeleteProductModal from "../components/products/DeleteProductModal";
+import EditProductModal from "../components/products/EditProductModal";
 
 function Products() {
 
@@ -103,76 +104,75 @@ function Products() {
                 </div>
                 <div>
                     {!loading ? (<div className="relative overflow-x-auto sm:rounded-lg">
-                        <Table hoverable={true}>
-                            <Table.Head>
-                                <Table.HeadCell>
-                                    Numéro
-                                </Table.HeadCell>
-                                <Table.HeadCell>
-                                    Libellé
-                                </Table.HeadCell>
-                                <Table.HeadCell>
-                                    Producteurs
-                                </Table.HeadCell>
-                                <Table.HeadCell>
-                                    Référence
-                                </Table.HeadCell>
-                                <Table.HeadCell>
-                                    Type de produit
-                                </Table.HeadCell>
-                                <Table.HeadCell>
-                                    Actions
-                                </Table.HeadCell>
-                            </Table.Head>
-                            <Table.Body className="divide-y">
-                                {products.slice(0, 10).map((product) => (
-                                    <Table.Row
-                                        className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
-                                        key={product.id}>
-                                        <Table.Cell
-                                            onClick={() => window.location.href = "/product/" + product.id}>
-                                            {product.id}
-                                        </Table.Cell>
-                                        <Table.Cell
-                                            onClick={() => window.location.href = "/product/" + product.id}>
-                                            {product.libelle}
-                                        </Table.Cell>
-                                        <Table.Cell
-                                            onClick={() => window.location.href = "/product/" + product.id}>
-                                            {product.producteurs}
-                                        </Table.Cell>
-                                        <Table.Cell
-                                            onClick={() => window.location.href = "/product/" + product.id}>
-                                            {product.reference}
-                                        </Table.Cell>
-                                        <Table.Cell
-                                            onClick={() => window.location.href = "/product/" + product.id}>
-                                            {product.typeProduit}
-                                        </Table.Cell>
-                                        <Table.Cell className="flex space-x-2">
-                                            <Button
-                                            >
-                                                <HiPencilAlt className="mr-2 text-lg"/>
-                                                Modifier
-                                            </Button>
-                                            <DeleteProductModal id={product.id}/>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                ))}
-                            </Table.Body>
-                        </Table>
+                            <Table hoverable={true}>
+                                <Table.Head>
+                                    <Table.HeadCell>
+                                        Numéro
+                                    </Table.HeadCell>
+                                    <Table.HeadCell>
+                                        Libellé
+                                    </Table.HeadCell>
+                                    <Table.HeadCell>
+                                        Producteurs
+                                    </Table.HeadCell>
+                                    <Table.HeadCell>
+                                        Référence
+                                    </Table.HeadCell>
+                                    <Table.HeadCell>
+                                        Type de produit
+                                    </Table.HeadCell>
+                                    <Table.HeadCell>
+                                        Actions
+                                    </Table.HeadCell>
+                                </Table.Head>
+                                <Table.Body className="divide-y">
+                                    {products.slice(0, 10).map((product) => (
+                                        <Table.Row
+                                            className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
+                                            key={product.id}>
+                                            <Table.Cell
+                                                onClick={() => window.location.href = "/product/" + product.id}>
+                                                {product.id}
+                                            </Table.Cell>
+                                            <Table.Cell
+                                                onClick={() => window.location.href = "/product/" + product.id}>
+                                                {product.libelle}
+                                            </Table.Cell>
+                                            <Table.Cell
+                                                onClick={() => window.location.href = "/product/" + product.id}>
+                                                {product.producteurs}
+                                            </Table.Cell>
+                                            <Table.Cell
+                                                onClick={() => window.location.href = "/product/" + product.id}>
+                                                {product.reference}
+                                            </Table.Cell>
+                                            <Table.Cell
+                                                onClick={() => window.location.href = "/product/" + product.id}>
+                                                {product.typeProduit}
+                                            </Table.Cell>
+                                            <Table.Cell className="flex space-x-2">
+                                                <EditProductModal product={product}/>
+                                                <DeleteProductModal id={product.id}/>
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    ))}
+                                </Table.Body>
+                            </Table>
 
-                        <Pagination
-                            nextLabel="Suivant"
-                            previousLabel="Précédent"
-                            className="text-center"
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={(page) => {
-                                console.log(page)
-                            }}
-                        />
-                    </div>) : (
+                            <div className="mb-4">
+                                <Pagination
+                                    nextLabel="Suivant"
+                                    previousLabel="Précédent"
+                                    className="text-center"
+                                    currentPage={currentPage}
+                                    totalPages={totalPages}
+                                    onPageChange={(page) => {
+                                        console.log(page)
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    ) : (
                         <div className="text-center pt-40 flex items-center justify-center space-x-3">
                             <Spinner
                                 aria-label="Extra large spinner example"

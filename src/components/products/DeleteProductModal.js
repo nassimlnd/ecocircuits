@@ -57,7 +57,9 @@ export default function DeleteProductModal({id}) {
                                                 className="sr-only">Supprimer le produit</span></h3>
                                             <button aria-label="Close"
                                                     className="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    type="button">
+                                                    type="button"
+                                                    onClick={() => setOpen(false)}
+                                            >
                                                 <svg stroke="currentColor" fill="none" stroke-width="0"
                                                      viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5"
                                                      height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
