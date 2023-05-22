@@ -1,6 +1,6 @@
 import {Fragment, React, useRef, useState} from "react";
 import {Dialog, Transition} from "@headlessui/react";
-import {Button} from "flowbite-react";
+import {Button, Spinner} from "flowbite-react";
 import {HiTrash} from "react-icons/hi";
 import ProductsService from "../../services/ProductsService";
 
@@ -177,16 +177,13 @@ export default function DeleteProductModal({id}) {
                                     </div>) : (
                                         <div className="flex flex-col items-center gap-y-6 text-center">
                                             {loading && (
-                                                <div className="flex flex-col items-center gap-y-6 text-center">
-                                                    <svg stroke="currentColor" fill="none" stroke-width="0"
-                                                         viewBox="0 0 24 24"
-                                                         className="text-7xl text-gray-500 animate-spin"
-                                                         height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                              stroke-width="2"
-                                                              d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                    </svg>
-                                                    <p className="text-lg text-gray-500 dark:text-gray-300">
+                                                <div className="flex flex-col items-center pt-4 gap-y-6 text-center">
+                                                    <Spinner
+                                                        aria-label="Extra large spinner example"
+                                                        size="xl"
+                                                        className="text-center mb-4 mt-8"
+                                                    />
+                                                    <p className="text-lg mb-8 text-gray-500 dark:text-gray-300">
                                                         Suppression en cours...
                                                     </p>
                                                 </div>)}
@@ -223,7 +220,7 @@ export default function DeleteProductModal({id}) {
                                             )}
                                             {errorAnimation && (
                                                 <div className="flex flex-col items-center gap-y-6 text-center">
-                                                    <div className="mb-4 mt-8 rounded-full border-4 border-red-600">
+                                                    <div className="mb-4 mt-10 rounded-full border-4 border-red-600">
                                                         <svg className="fill-red-600"
                                                              stroke="currentColor" fill="none" stroke-width="0"
                                                              viewBox="0 0 24 24" className="text-7xl text-red-600"
