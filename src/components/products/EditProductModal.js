@@ -8,6 +8,8 @@ export default function EditProductModal({product}) {
 
     const cancelButtonRef = useRef(null);
 
+
+
     return (
         <>
             <Button
