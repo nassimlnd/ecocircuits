@@ -17,14 +17,22 @@ export default function DeleteProductModal({id}) {
         const response = await ProductsService.deleteProduct(id);
         console.log(response);
         setLoading(false);
-        if (response.status === 204) {
+        if (response.status === 200) {
             setSuccessAnimation(true);
             setTimeout(() => {
-                //setOpen(false);
-                //window.location.reload();
-            }, 3000);
+                setOpen(false);
+            }, 1500);
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         } else {
             setErrorAnimation(true);
+            setTimeout(() => {
+                setOpen(false);
+            }, 1500);
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
         }
     }
 
@@ -215,26 +223,19 @@ export default function DeleteProductModal({id}) {
                                             )}
                                             {errorAnimation && (
                                                 <div className="flex flex-col items-center gap-y-6 text-center">
-                                                    {/*<svg stroke="currentColor" fill="none" stroke-width="0"
-                                                         viewBox="0 0 24 24" className="text-7xl text-red-600"
-                                                         height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                              stroke-width="2"
-                                                              d="M6 18L18 6M6 6l12 12"></path>
-                                                    </svg>*/}
+                                                    <div className="mb-4 mt-8 rounded-full border-4 border-red-600">
+                                                        <svg className="fill-red-600"
+                                                             stroke="currentColor" fill="none" stroke-width="0"
+                                                             viewBox="0 0 24 24" className="text-7xl text-red-600"
+                                                             height="1em" width="1em"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                  stroke-width="2"
+                                                                  d="M6 18L18 6M6 6l12 12"></path>
+                                                        </svg>
+                                                    </div>
 
-                                                    <svg className="checkmark" fill="red"
-                                                         xmlns="http://www.w3.org/2000/svg"
-                                                         viewBox="0 0 52 52">
-                                                        <circle
-                                                            className="checkmark_circle fill-red-600 shadow-none stroke-0 stroke-transparent"
-                                                            cx="26" cy="26" r="25"
-                                                            fill="none"/>
-                                                        <path className="checkmark_check" fill="none"
-                                                              d="M14.1 14.1l23.8 23.8 m0,-23.8 l-23.8,23.8"/>
-                                                    </svg>
-
-                                                    <p className="text-lg text-gray-500 dark:text-gray-300">
+                                                    <p className="text-lg mb-8 dark:text-gray-300">
                                                         Une erreur est survenue lors de la suppression du produit.
                                                     </p>
                                                 </div>)}
