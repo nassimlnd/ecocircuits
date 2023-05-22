@@ -175,9 +175,9 @@ export default function DeleteProductModal({id}) {
                                             </div>
                                         </div>
                                     </div>) : (
-                                        <div className="flex flex-col items-center gap-y-6 text-center">
+                                        <div className="flex items-start justify-between rounded-t px-5 pt-5 px-3 pt-3 pb-0">
                                             {loading && (
-                                                <div className="flex flex-col items-center pt-4 gap-y-6 text-center">
+                                                <div className="flex flex-col items-center pt-4 mx-auto gap-y-6 text-center">
                                                     <Spinner
                                                         aria-label="Extra large spinner example"
                                                         size="xl"
@@ -188,7 +188,7 @@ export default function DeleteProductModal({id}) {
                                                     </p>
                                                 </div>)}
                                             {successAnimation && (
-                                                <div className="flex flex-col items-center gap-y-6 text-center py-10">
+                                                <div className="flex flex-col items-center pt-4 mx-auto gap-y-6 text-center">
                                                     {/*<svg stroke="currentColor" fill="none" stroke-width="0"
                                                          viewBox="0 0 24 24" className="text-7xl text-green-600"
                                                          height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -213,13 +213,13 @@ export default function DeleteProductModal({id}) {
                                                             d="M14.1 27.2l7.1 7.2 16.7-16.8"
                                                         />
                                                     </svg>
-                                                    <p className="text-lg dark:text-gray-300">
+                                                    <p className="text-lg pb-8 dark:text-gray-300">
                                                         Produit supprimé avec succès !
                                                     </p>
                                                 </div>
                                             )}
                                             {errorAnimation && (
-                                                <div className="flex flex-col items-center gap-y-6 text-center">
+                                                <div className="flex items-start justify-between rounded-t px-5 pt-5 px-3 pt-3 pb-0">
                                                     <div className="mb-4 mt-10 rounded-full border-4 border-red-600">
                                                         <svg className="fill-red-600"
                                                              stroke="currentColor" fill="none" stroke-width="0"
