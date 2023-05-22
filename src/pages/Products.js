@@ -1,15 +1,22 @@
-import {React, useEffect, useState} from "react";
+import {Fragment, React, useEffect, useRef, useState} from "react";
 import AuthService from "../services/AuthService";
 import ConnectedLayout from "../layouts/ConnectedLayout";
-import {Breadcrumb, Button, Modal, Pagination, Spinner, Table} from "flowbite-react";
+import {Breadcrumb, Button, Pagination, Spinner, Table} from "flowbite-react";
 import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
 import ProductsService from "../services/ProductsService";
 import AddProductModal from "../components/products/AddProductModal";
+import {Dialog, Transition} from "@headlessui/react";
+import DeleteProductModal from "../components/products/DeleteProductModal";
 
 function Products() {
 
     var [currentPage, setCurrentPage] = useState(1);
     var [addProductModal, setAddProductModal] = useState(false);
+    var [editModal, setEditModal] = useState(false);
+    var [deleteModal, setDeleteModal] = useState(false);
+
+    const cancelButtonRef = useRef(null);
+
 
     if (!AuthService.getCurrentUser()) {
         window.location.href = "/login";
@@ -17,22 +24,6 @@ function Products() {
 
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
-
-    /*useEffect(() => {
-        console.log("The value changed : " + addProductModal);
-    }, [addProductModal]);
-
-    useEffect(() => {
-        if (addProductModal) {
-            const timer = setTimeout(() => {
-                document.getElementById("modal").style.display = "block";
-            }, 0);
-
-            return () => clearTimeout(timer);
-        } else {
-            document.getElementById("modal").style.display = "none";
-        }
-    }, [addProductModal]);*/
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,22 +34,6 @@ function Products() {
         };
         fetchData();
     }, []);
-
-    const handlePageChange = (event) => {
-        setCurrentPage(event.target.value);
-    }
-
-    const onAddProductButton = () => {
-        setAddProductModal(true)
-    }
-
-    const onAddProduct = () => {
-
-    }
-
-    const onCloseAddProductModal = () => {
-        setAddProductModal(false);
-    }
 
     var totalPages = Math.ceil(products.length / 10);
 
@@ -119,79 +94,7 @@ function Products() {
                         </div>
                         <div>
                             <>
-                            {/*<Button
-                                    onClick={onAddProductButton}
-                                >
-                                    Ajouter un produit
-                                </Button>
-
-                                {addProductModal ? (<Modal
-                                    id="modal"
-                                    show={true}
-                                    onClose={onCloseAddProductModal}
-                                >
-                                    <Modal.Header>
-                                        Ajouter un produit
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                                            <div><label className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                        htmlFor="productName">Libelle</label>
-                                                <div className="flex mt-1">
-                                                    <div className="relative w-full"><input
-                                                        className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 rounded-lg p-2.5 text-sm"
-                                                        id="productName" name="productName"
-                                                        placeholder="Betterave crue"/></div>
-                                                </div>
-                                            </div>
-                                            <div><label className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                        htmlFor="category">Type</label>
-                                                <div className="flex mt-1">
-                                                    <div className="relative w-full"><input
-                                                        className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 rounded-lg p-2.5 text-sm"
-                                                        id="category" name="category" placeholder="Légumes"/></div>
-                                                </div>
-                                            </div>
-                                            <div><label className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                        htmlFor="brand">TVA</label>
-                                                <div className="flex mt-1">
-                                                    <div className="relative w-full"><input
-                                                        className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 rounded-lg p-2.5 text-sm"
-                                                        id="brand" name="brand" placeholder="5%"/></div>
-                                                </div>
-                                            </div>
-                                            <div><label className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                        htmlFor="price">Prix</label>
-                                                <div className="flex mt-1">
-                                                    <div className="relative w-full"><input
-                                                        className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 rounded-lg p-2.5 text-sm"
-                                                        id="price" name="price" type="number" placeholder="3 €"/></div>
-                                                </div>
-                                            </div>
-                                            <div className="lg:col-span-2"><label
-                                                className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                htmlFor="producTable.Celletails">Description</label><textarea
-                                                className="block w-full text-sm p-4 rounded-lg border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 mt-1"
-                                                id="producTable.Celletails" name="producTable.Celletails"
-                                                placeholder="Betterave rouge crue, vendue à la pièce ou par 500g, origine France, certifiée AB, cultivée par le GAEC de la Garenne à Sainte Pazanne (44)."
-                                                rows="6"></textarea></div>
-                                        </div>
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button onClick={onAddProduct}>
-                                            Ajouter
-                                        </Button>
-                                        <Button
-                                            color="failure"
-                                            onClick={onCloseAddProductModal}
-                                        >
-                                            Annuler
-                                        </Button>
-                                    </Modal.Footer>
-                                </Modal>) : null}
-                                */}
-
-                                <AddProductModal />
+                                <AddProductModal/>
                             </>
                         </div>
 
@@ -222,35 +125,37 @@ function Products() {
                                 </Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y">
-                                {products.map((product) => (
+                                {products.slice(0, 10).map((product) => (
                                     <Table.Row
                                         className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
-                                        key={product.id}
-                                        onClick={() => window.location.href = "/product/" + product.id}>
-                                        <Table.Cell>
+                                        key={product.id}>
+                                        <Table.Cell
+                                            onClick={() => window.location.href = "/product/" + product.id}>
                                             {product.id}
                                         </Table.Cell>
-                                        <Table.Cell>
+                                        <Table.Cell
+                                            onClick={() => window.location.href = "/product/" + product.id}>
                                             {product.libelle}
                                         </Table.Cell>
-                                        <Table.Cell>
+                                        <Table.Cell
+                                            onClick={() => window.location.href = "/product/" + product.id}>
                                             {product.producteurs}
                                         </Table.Cell>
-                                        <Table.Cell>
+                                        <Table.Cell
+                                            onClick={() => window.location.href = "/product/" + product.id}>
                                             {product.reference}
                                         </Table.Cell>
-                                        <Table.Cell>
+                                        <Table.Cell
+                                            onClick={() => window.location.href = "/product/" + product.id}>
                                             {product.typeProduit}
                                         </Table.Cell>
                                         <Table.Cell className="flex space-x-2">
-                                            <Button>
+                                            <Button
+                                            >
                                                 <HiPencilAlt className="mr-2 text-lg"/>
                                                 Modifier
                                             </Button>
-                                            <Button color="failure">
-                                                <HiTrash className="mr-2 text-lg"/>
-                                                Supprimer
-                                            </Button>
+                                            <DeleteProductModal id={product.id}/>
                                         </Table.Cell>
                                     </Table.Row>
                                 ))}
@@ -279,6 +184,7 @@ function Products() {
                     )}
                 </div>
             </div>
+
         </ConnectedLayout>
     );
 }
