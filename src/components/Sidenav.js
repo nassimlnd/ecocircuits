@@ -24,7 +24,7 @@ function Sidenav() {
                         <Sidebar.Item
                             href="/dashboard"
                             icon={HiChartPie}
-                            active={activePage === "/dashboard"}
+                            active={activePage === "/dashboard" || activePage === "/"}
                         >Tableau de bord</Sidebar.Item>
                         <Sidebar.Item
                             href="/orders"
@@ -53,6 +53,13 @@ function Sidenav() {
                             icon={HiShoppingCart}
                             active={activePage === "/admin/producteurs"}
                         >Producteurs</Sidebar.Item>
+                        <Sidebar.Item
+                            href="/clients"
+                            icon={HiUsers}
+                            active={activePage === "/clients"}
+                        >
+                            Clients
+                        </Sidebar.Item>
                     </Sidebar.ItemGroup>
                 </Sidebar.Items>
             </Sidebar>

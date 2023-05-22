@@ -34,7 +34,7 @@ function ConnectedLayout({children}) {
                         <div className="px-4 pt-4">
                             <FooterConnected/>
                         </div>
-                        <div className="my-4">
+                        <div className="my-4 pb-4">
                             <p className="text-center dark:text-white">© 2023 EcoCircuits™ - Tous droits réservés.</p>
                         </div>
                     </div>
