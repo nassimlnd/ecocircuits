@@ -1,43 +1,33 @@
-import {React, useEffect, useRef, useState} from "react";
-import AuthService from "../../services/AuthService";
+import React, {useEffect, useState} from "react";
 import ConnectedLayout from "../../layouts/ConnectedLayout";
-import {Breadcrumb, Pagination, Spinner, Table} from "flowbite-react";
-import {HiHome} from "react-icons/hi";
-import ProductsService from "../../services/ProductsService";
+import {Breadcrumb, Button, Pagination, Spinner, Table} from "flowbite-react";
+import {HiHome, HiPencil, HiPencilAlt, HiTrash} from "react-icons/hi";
 import AddProductModal from "../../components/products/AddProductModal";
-import DeleteProductModal from "../../components/products/DeleteProductModal";
 import EditProductModal from "../../components/products/EditProductModal";
+import DeleteProductModal from "../../components/products/DeleteProductModal";
+import CustomersService from "../../services/CustomersService";
+import AddCustomerModal from "../../components/customers/AddCustomerModal";
 
-function Products() {
+function Customers() {
 
-    var [currentPage, setCurrentPage] = useState(1);
-
-
-    if (!AuthService.getCurrentUser()) {
-        window.location.href = "/login";
-    }
-
-    const [loading, setLoading] = useState(true);
-    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [customers, setCustomers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const response = await ProductsService.getProducts();
-            setProducts(response.data);
+            const response = await CustomersService.getAll();
+            setCustomers(response.data);
             setLoading(false);
-        };
+        }
         fetchData();
     }, []);
 
-    var totalPages = Math.ceil(products.length / 10);
+    var totalPages = Math.ceil(customers.length / 10);
 
-    function paginate(array, page_size, page_number) {
-        // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
-        return array.slice((page_number - 1) * page_size, page_number * page_size);
-    }
-
-    return (<ConnectedLayout>
+    return (
+        <ConnectedLayout>
             <div className="flex-grow dark:bg-gray-800 ">
                 <div
                     className="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
@@ -52,15 +42,15 @@ function Products() {
                                 Tableau de bord
                             </Breadcrumb.Item>
                             <Breadcrumb.Item>
-                                Produits
+                                Clients
                             </Breadcrumb.Item>
                         </Breadcrumb>
-                        <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Produits</h1>
+                        <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Clients</h1>
                     </div>
                     <div className="block items-center justify-between space-y-2 sm:space-y-0 sm:flex">
                         <div>
                             <form className="flex items-center w-96">
-                                <label htmlFor="simple-search" className="sr-only">Rechercher un produit</label>
+                                <label htmlFor="simple-search" className="sr-only">Rechercher un client</label>
                                 <div className="relative w-full">
                                     <div
                                         className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -73,7 +63,7 @@ function Products() {
                                     </div>
                                     <input type="text" id="simple-search"
                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="Rechercher un produit" required/>
+                                           placeholder="Rechercher un client" required/>
                                 </div>
                                 <button type="submit"
                                         className="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -88,7 +78,7 @@ function Products() {
                         </div>
                         <div>
                             <>
-                                <AddProductModal/>
+                                <AddCustomerModal/>
                             </>
                         </div>
 
@@ -103,49 +93,50 @@ function Products() {
                                         Numéro
                                     </Table.HeadCell>
                                     <Table.HeadCell>
-                                        Libellé
+                                        Nom
                                     </Table.HeadCell>
                                     <Table.HeadCell>
-                                        Producteurs
+                                        Prénom
                                     </Table.HeadCell>
                                     <Table.HeadCell>
-                                        Référence
-                                    </Table.HeadCell>
-                                    <Table.HeadCell>
-                                        Type de produit
+                                        Email
                                     </Table.HeadCell>
                                     <Table.HeadCell>
                                         Actions
                                     </Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y">
-                                    {products.slice(0, 10).map((product) => (
+                                    {customers.slice(0, 10).map((customer) => (
                                         <Table.Row
                                             className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
-                                            key={product.id}>
+                                            key={customer.id}>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
-                                                {product.id}
+                                                onClick={() => window.location.href = "/customers/" + customer.id}>
+                                                {customer.id}
                                             </Table.Cell>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
-                                                {product.libelle}
+                                                onClick={() => window.location.href = "/customers/" + customer.id}>
+                                                {customer.nom}
                                             </Table.Cell>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
-                                                {product.producteurs}
+                                                onClick={() => window.location.href = "/customers/" + customer.id}>
+                                                {customer.prenom}
                                             </Table.Cell>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
-                                                {product.reference}
-                                            </Table.Cell>
-                                            <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
-                                                {product.typeProduit}
+                                                onClick={() => window.location.href = "/customers/" + customer.id}>
+                                                {customer.email}
                                             </Table.Cell>
                                             <Table.Cell className="flex space-x-2">
-                                                <EditProductModal product={product}/>
-                                                <DeleteProductModal id={product.id}/>
+                                                <Button
+                                                >
+                                                    <HiPencilAlt className="mr-2 text-lg"/>
+                                                    Modifier
+                                                </Button>
+                                                <Button
+                                                    color="failure">
+                                                    <HiTrash className="mr-2 text-lg"/>
+                                                    Supprimer
+                                                </Button>
                                             </Table.Cell>
                                         </Table.Row>
                                     ))}
@@ -177,9 +168,8 @@ function Products() {
                     )}
                 </div>
             </div>
-
         </ConnectedLayout>
-    );
+    )
 }
 
-export default Products;
+export default Customers;

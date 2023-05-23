@@ -82,6 +82,49 @@ class AuthService {
         return JSON.parse(localStorage.getItem('user'));
     }
 
+    getCurrentUserRoles() {
+        return JSON.parse(localStorage.getItem('user')).roles;
+    }
+
+    isOrga() {
+        return localStorage.getItem('user') !== null && JSON.parse(localStorage.getItem('user')).roles.includes("ROLE_ORGA");
+    }
+
+    isProd() {
+        return localStorage.getItem('user') !== null && JSON.parse(localStorage.getItem('user')).roles.includes("ROLE_PROD");
+    }
+
+    isAdmin() {
+        return localStorage.getItem('user') !== null && JSON.parse(localStorage.getItem('user')).roles.includes("ROLE_ADMIN");
+    }
+
+    tokenIsValid() {
+        if (localStorage.getItem('user') !== null) {
+            let token = JSON.parse(localStorage.getItem('user')).accessToken;
+            let base64Url = token.split('.')[1];
+            let base64;
+            let exp;
+            try {
+                let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                let exp = JSON.parse(window.atob(base64)).exp;
+
+                let now = new Date();
+                now = Math.round(now.getTime() / 1000);
+
+                console.log("Token exp : " + exp);
+                console.log("Now : " + now);
+
+                return exp > now;
+            } catch (e) {
+                console.log(e);
+                return false;
+            }
+
+        } else {
+            return "Vous n'êtes pas connecté";
+        }
+    }
+
 }
 
 export default new AuthService();

@@ -21,6 +21,8 @@ import {Navbar} from "flowbite-react";
 import AccountInfo from "./pages/AccountInfo";
 import OrdersDetails from "./pages/orders/OrdersDetails";
 import CreateOrder from "./pages/organisateur/CreateOrder";
+import TokenVerify from "./components/TokenVerify";
+import Customers from "./pages/organisateur/Customers";
 
 function App() {
     const user = AuthService.getCurrentUser();
@@ -50,19 +52,22 @@ function App() {
                     </>) : (
                     <>
                         <div className="flex-grow">
-                            <Routes>
-                                <Route index element={<Dashboard/>}/>
-                                <Route path="/dashboard" element={<Dashboard/>}/>
-                                <Route path="/orders" element={<Orders/>}/>
-                                <Route path="/order/:id" element={<OrdersDetails />}/>
-                                <Route path="/orders/create" element={<CreateOrder />}/>
-                                <Route path="/deliveries" element={<TourneesList/>}/>
-                                <Route path="/vehicules" element={<Vehicules/>}/>
-                                <Route path="/products" element={<Products/>}/>
-                                <Route path="/account" element={<AccountInfo/>}/>
-                                <Route path="/logout" element={<LoginForm/>}/>
-                                <Route path="*" element={<Error404/>}/>
-                            </Routes>
+                            <TokenVerify>
+                                <Routes>
+                                    <Route index element={<Dashboard/>}/>
+                                    <Route path="/dashboard" element={<Dashboard/>}/>
+                                    <Route path="/orders" element={<Orders/>}/>
+                                    <Route path="/order/:id" element={<OrdersDetails/>}/>
+                                    <Route path="/orders/create" element={<CreateOrder/>}/>
+                                    <Route path="/deliveries" element={<TourneesList/>}/>
+                                    <Route path="/vehicules" element={<Vehicules/>}/>
+                                    <Route path="/products" element={<Products/>}/>
+                                    <Route path="/account" element={<AccountInfo/>}/>
+                                    <Route path="/logout" element={<LoginForm/>}/>
+                                    <Route path="/customers" element={<Customers/>}/>
+                                    <Route path="*" element={<Error404/>}/>
+                                </Routes>
+                            </TokenVerify>
                         </div>
                     </>
                 )

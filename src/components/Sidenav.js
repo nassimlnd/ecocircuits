@@ -2,9 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Sidebar} from "flowbite-react";
 import {HiChartPie, HiShoppingCart, HiTruck, HiUsers} from "react-icons/hi";
 import {FaShoppingBasket} from "react-icons/fa";
+import AuthService from "../services/AuthService";
 
 function Sidenav() {
 
+    const user = AuthService.getCurrentUser();
     const [activePage, setActivePage] = useState("/");
 
     useEffect(() => {
@@ -26,6 +28,8 @@ function Sidenav() {
                             icon={HiChartPie}
                             active={activePage === "/dashboard" || activePage === "/"}
                         >Tableau de bord</Sidebar.Item>
+                    </Sidebar.ItemGroup>
+                    <Sidebar.ItemGroup>
                         <Sidebar.Item
                             href="/orders"
                             icon={HiShoppingCart}
@@ -44,23 +48,26 @@ function Sidenav() {
                     </Sidebar.ItemGroup>
                     <Sidebar.ItemGroup>
                         <Sidebar.Item
-                            href="/admin/users"
-                            icon={HiUsers}
-                            active={activePage === "/admin/users"}
-                        >Utilisateurs</Sidebar.Item>
-                        <Sidebar.Item
-                            href="/admin/producteurs"
+                            href="/producteurs"
                             icon={HiShoppingCart}
                             active={activePage === "/admin/producteurs"}
                         >Producteurs</Sidebar.Item>
                         <Sidebar.Item
-                            href="/clients"
+                            href="/customers"
                             icon={HiUsers}
-                            active={activePage === "/clients"}
+                            active={activePage === "/customers"}
                         >
                             Clients
                         </Sidebar.Item>
                     </Sidebar.ItemGroup>
+                    {AuthService.isAdmin() && (
+                    <Sidebar.ItemGroup>
+                        <Sidebar.Item
+                            href="/admin/users"
+                            icon={HiUsers}
+                            active={activePage === "/admin/users"}
+                        >Utilisateurs</Sidebar.Item>
+                    </Sidebar.ItemGroup>)}
                 </Sidebar.Items>
             </Sidebar>
         </>
