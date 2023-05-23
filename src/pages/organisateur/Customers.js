@@ -7,6 +7,7 @@ import EditProductModal from "../../components/products/EditProductModal";
 import DeleteProductModal from "../../components/products/DeleteProductModal";
 import CustomersService from "../../services/CustomersService";
 import AddCustomerModal from "../../components/customers/AddCustomerModal";
+import DeleteCustomerModal from "../../components/customers/DeleteCustomerModal";
 
 function Customers() {
 
@@ -134,11 +135,7 @@ function Customers() {
                                                     <HiPencilAlt className="mr-2 text-lg"/>
                                                     Modifier
                                                 </Button>
-                                                <Button
-                                                    color="failure">
-                                                    <HiTrash className="mr-2 text-lg"/>
-                                                    Supprimer
-                                                </Button>
+                                                <DeleteCustomerModal id={customer.id} fetchCustomers={fetchData} />
                                             </Table.Cell>
                                         </Table.Row>
                                     ))}

@@ -4,7 +4,7 @@ import {Button, Spinner} from "flowbite-react";
 import {HiTrash} from "react-icons/hi";
 import CustomersService from "../../services/CustomersService";
 
-export default function DeleteCustomerModal({id}) {
+export default function DeleteCustomerModal({id, fetchCustomers}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [successAnimation, setSuccessAnimation] = useState(false);
@@ -15,24 +15,24 @@ export default function DeleteCustomerModal({id}) {
     const deleteCustomer = async (id) => {
         setLoading(true);
         const response = await CustomersService.delete(id);
-        console.log(response);
         setLoading(false);
         if (response.status === 200) {
             setSuccessAnimation(true);
             setTimeout(() => {
                 setOpen(false);
-            }, 1500);
-            setTimeout(() => {
-                window.location.reload();
+                fetchCustomers();
             }, 2000);
+            setTimeout(() => {
+                setSuccessAnimation(false);
+            }, 2150);
         } else {
             setErrorAnimation(true);
             setTimeout(() => {
                 setOpen(false);
-            }, 1500);
-            setTimeout(() => {
-                window.location.reload();
             }, 2000);
+            setTimeout(() => {
+                setErrorAnimation(false);
+            }, 2150);
         }
     }
 
@@ -131,7 +131,7 @@ export default function DeleteCustomerModal({id}) {
                                         <div
                                             className="flex items-start justify-between rounded-t px-5 pt-5 px-3 pt-3 pb-0">
                                             <h3 className="text-xl font-medium text-gray-900 dark:text-white"><span
-                                                className="sr-only">Supprimer le produit</span></h3>
+                                                className="sr-only">Supprimer le client</span></h3>
                                             <button aria-label="Close"
                                                     className="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
                                                     type="button"
@@ -155,13 +155,13 @@ export default function DeleteCustomerModal({id}) {
                                                           d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                 </svg>
                                                 <p className="text-lg text-gray-500 dark:text-gray-300">
-                                                    Êtes-vous sûr de vouloir supprimer le produit n°{id} ? Cette
+                                                    Êtes-vous sûr de vouloir supprimer le client n°{id} ? Cette
                                                     action
                                                     est irréversible.
                                                 </p>
                                                 <div className="flex items-center gap-x-3">
                                                     <Button
-                                                        onClick={() => deleteProduct(id)}
+                                                        onClick={() => deleteCustomer(id)}
                                                     >
                                                         Oui, je suis sûr
                                                     </Button>
@@ -214,7 +214,7 @@ export default function DeleteCustomerModal({id}) {
                                                         />
                                                     </svg>
                                                     <p className="text-lg pb-8 dark:text-gray-300">
-                                                        Produit supprimé avec succès !
+                                                        Client supprimé avec succès !
                                                     </p>
                                                 </div>
                                             )}
@@ -233,7 +233,7 @@ export default function DeleteCustomerModal({id}) {
                                                     </div>
 
                                                     <p className="text-lg mb-8 dark:text-gray-300">
-                                                        Une erreur est survenue lors de la suppression du produit.
+                                                        Une erreur est survenue lors de la suppression du client.
                                                     </p>
                                                 </div>)}
                                         </div>
