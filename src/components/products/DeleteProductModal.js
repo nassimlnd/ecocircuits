@@ -219,7 +219,7 @@ export default function DeleteProductModal({id}) {
                                                 </div>
                                             )}
                                             {errorAnimation && (
-                                                <div className="flex items-start justify-between rounded-t px-5 pt-5 px-3 pt-3 pb-0">
+                                                <div className="flex flex-col items-center pt-4 mx-auto gap-y-6 text-center">
                                                     <div className="mb-4 mt-10 rounded-full border-4 border-red-600">
                                                         <svg className="fill-red-600"
                                                              stroke="currentColor" fill="none" stroke-width="0"

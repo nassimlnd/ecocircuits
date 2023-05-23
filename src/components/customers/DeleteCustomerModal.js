@@ -2,7 +2,7 @@ import {Fragment, React, useRef, useState} from "react";
 import {Dialog, Transition} from "@headlessui/react";
 import {Button, Spinner} from "flowbite-react";
 import {HiTrash} from "react-icons/hi";
-import ProductsService from "../../services/ProductsService";
+import CustomersService from "../../services/CustomersService";
 
 export default function DeleteCustomerModal({id}) {
     const [open, setOpen] = useState(false);
@@ -12,9 +12,9 @@ export default function DeleteCustomerModal({id}) {
 
     const cancelButtonRef = useRef(null);
 
-    const deleteProduct = async (id) => {
+    const deleteCustomer = async (id) => {
         setLoading(true);
-        const response = await ProductsService.deleteProduct(id);
+        const response = await CustomersService.delete(id);
         console.log(response);
         setLoading(false);
         if (response.status === 200) {

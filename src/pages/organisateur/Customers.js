@@ -14,13 +14,15 @@ function Customers() {
     const [customers, setCustomers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
+    const fetchData = async () => {
+        setCustomers([]);
+        setLoading(true);
+        const response = await CustomersService.getAll();
+        setCustomers(response.data);
+        setLoading(false);
+    }
+
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            const response = await CustomersService.getAll();
-            setCustomers(response.data);
-            setLoading(false);
-        }
         fetchData();
     }, []);
 
@@ -78,7 +80,7 @@ function Customers() {
                         </div>
                         <div>
                             <>
-                                <AddCustomerModal/>
+                                <AddCustomerModal fetchCustomers={fetchData}/>
                             </>
                         </div>
 
