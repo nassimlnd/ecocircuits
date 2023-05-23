@@ -10,7 +10,7 @@ function TokenVerify({children}) {
             console.log("Token is valid");
         } else {
             AuthService.logout();
-            //window.location.href = "/login";
+            window.location.href = "/login";
             return false;
         }
     }
