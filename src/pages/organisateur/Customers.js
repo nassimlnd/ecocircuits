@@ -8,6 +8,7 @@ import DeleteProductModal from "../../components/products/DeleteProductModal";
 import CustomersService from "../../services/CustomersService";
 import AddCustomerModal from "../../components/customers/AddCustomerModal";
 import DeleteCustomerModal from "../../components/customers/DeleteCustomerModal";
+import EditCustomerModal from "../../components/customers/EditCustomerModal";
 
 function Customers() {
 
@@ -130,11 +131,7 @@ function Customers() {
                                                 {customer.email}
                                             </Table.Cell>
                                             <Table.Cell className="flex space-x-2">
-                                                <Button
-                                                >
-                                                    <HiPencilAlt className="mr-2 text-lg"/>
-                                                    Modifier
-                                                </Button>
+                                                <EditCustomerModal customer={customer} fetchCustomers={fetchData}/>
                                                 <DeleteCustomerModal id={customer.id} fetchCustomers={fetchData} />
                                             </Table.Cell>
                                         </Table.Row>
