@@ -18,6 +18,11 @@ function Orders() {
         const fetchData = async () => {
             setLoading(true);
             const response = await CommandesService.getCommandes();
+
+            response.data.map((commande) => {
+                commande.dateCommande = new Date(commande.dateCommande).toLocaleDateString("fr");
+            });
+
             setCommandes(response.data);
             setLoading(false);
         };
@@ -118,7 +123,7 @@ function Orders() {
                                     </Table.Cell>
                                     <Table.Cell
                                         onClick={() => window.location.href = "/orders/" + commande.id}>
-                                        {commande.clientId}
+                                        {commande.idClient}
                                     </Table.Cell>
                                     <Table.Cell className="flex space-x-2">
                                         <Button>

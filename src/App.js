@@ -10,8 +10,8 @@ import Error404 from "./components/error/404";
 import Home from "./pages/Home";
 import AuthService from "./services/AuthService";
 import Foot from "./components/Footer";
-import Nav from "./components/Nav";
-import NavConnected from "./components/NavConnected";
+import Nav from "./components/navigation/Nav";
+import NavConnected from "./components/navigation/NavConnected";
 import React from "react";
 import AccountInfo from "./pages/account/AccountInfo";
 import OrdersDetails from "./pages/organisateur/orders/OrdersDetails";
@@ -20,6 +20,8 @@ import TokenVerify from "./components/TokenVerify";
 import Customers from "./pages/organisateur/customers/Customers";
 import CustomersDetails from "./pages/organisateur/customers/CustomersDetails";
 import Producers from "./pages/organisateur/producers/Producers";
+import Users from "./pages/admin/users/Users";
+import UsersDetails from "./pages/admin/users/UsersDetails";
 
 function App() {
     const user = AuthService.getCurrentUser();
@@ -65,6 +67,12 @@ function App() {
                                     <Route path="/customers/:id" element={<CustomersDetails/>}/>
                                     <Route path="/producers" element={<Producers/>}/>
                                     <Route path="*" element={<Error404/>}/>
+                                    {AuthService.isAdmin() && (
+                                        <>
+                                            <Route path="/admin/users" element={<Users/>}/>
+                                            <Route path="/admin/users/:id" element={<UsersDetails />}/>
+                                        </>
+                                    )}
                                 </Routes>
                             </TokenVerify>
                         </div>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Navbar, Dropdown, Avatar} from "flowbite-react";
-import feuille from "../assets/feuille.png";
+import feuille from "../../assets/feuille.png";
 
 function Nav() {
     const [activePage, setActivePage] = useState("/");

@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {Fragment} from "react";
 import {Disclosure, Menu, Transition} from "@headlessui/react";
 import {Bars3Icon, XMarkIcon, BellIcon} from "@heroicons/react/24/outline";
-import logo from "../assets/logo2.png";
-import homeLogo from "../assets/long_logo.png";
-import avatarLogo from "../assets/avatar.png";
+import logo from "../../assets/logo2.png";
+import homeLogo from "../../assets/long_logo.png";
+import avatarLogo from "../../assets/avatar.png";
 
 
 function classNames(...classes) {

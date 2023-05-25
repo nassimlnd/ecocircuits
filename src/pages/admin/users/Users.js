@@ -1,43 +1,33 @@
-import {React, useEffect, useRef, useState} from "react";
-import AuthService from "../../../services/AuthService";
+import {React, useEffect, useState} from "react";
 import ConnectedLayout from "../../../layouts/ConnectedLayout";
-import {Breadcrumb, Pagination, Spinner, Table} from "flowbite-react";
-import {HiHome} from "react-icons/hi";
-import ProductsService from "../../../services/ProductsService";
-import AddProductModal from "../../../components/products/AddProductModal";
-import DeleteProductModal from "../../../components/products/DeleteProductModal";
-import EditProductModal from "../../../components/products/EditProductModal";
+import {Badge, Breadcrumb, Button, Pagination, Spinner, Table} from "flowbite-react";
+import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
+import UsersService from "../../../services/UsersService";
+import DeleteUserModal from "../../../components/users/DeleteUserModal";
+import AddUserModal from "../../../components/users/AddUserModal";
 
-function Products() {
+function Users() {
 
-    var [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.ceil(users.length / 10);
 
-
-    if (!AuthService.getCurrentUser()) {
-        window.location.href = "/login";
+    const fetchData = async () => {
+        setLoading(true);
+        const response = await UsersService.getAllUsersWithRoles();
+        setUsers(response.data);
+        setLoading(false);
     }
-
-    const [loading, setLoading] = useState(true);
-    const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            const response = await ProductsService.getProducts();
-            setProducts(response.data);
-            setLoading(false);
-        };
         fetchData();
-    }, []);
+    }, [])
 
-    var totalPages = Math.ceil(products.length / 10);
 
-    function paginate(array, page_size, page_number) {
-        // human-readable page numbers usually start with 1, so we reduce 1 in the first argument
-        return array.slice((page_number - 1) * page_size, page_number * page_size);
-    }
+    return (
+        <ConnectedLayout>
 
-    return (<ConnectedLayout>
             <div className="flex-grow dark:bg-gray-800 ">
                 <div
                     className="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
@@ -52,15 +42,15 @@ function Products() {
                                 Tableau de bord
                             </Breadcrumb.Item>
                             <Breadcrumb.Item>
-                                Produits
+                                Utilisateurs
                             </Breadcrumb.Item>
                         </Breadcrumb>
-                        <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Produits</h1>
+                        <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Utilisateurs</h1>
                     </div>
                     <div className="block items-center justify-between space-y-2 sm:space-y-0 sm:flex">
                         <div>
                             <form className="flex items-center w-96">
-                                <label htmlFor="simple-search" className="sr-only">Rechercher un produit</label>
+                                <label htmlFor="simple-search" className="sr-only">Rechercher un utilisateur</label>
                                 <div className="relative w-full">
                                     <div
                                         className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -88,7 +78,7 @@ function Products() {
                         </div>
                         <div>
                             <>
-                                <AddProductModal/>
+                                <AddUserModal fetchUsers={fetchData}/>
                             </>
                         </div>
 
@@ -103,42 +93,55 @@ function Products() {
                                         Numéro
                                     </Table.HeadCell>
                                     <Table.HeadCell>
-                                        Libellé
+                                        Identifiant
                                     </Table.HeadCell>
                                     <Table.HeadCell>
-                                        Référence
+                                        Email
                                     </Table.HeadCell>
                                     <Table.HeadCell>
-                                        Type de produit
+                                        Rôles
                                     </Table.HeadCell>
                                     <Table.HeadCell>
                                         Actions
                                     </Table.HeadCell>
                                 </Table.Head>
                                 <Table.Body className="divide-y">
-                                    {products.slice(0, 10).map((product) => (
+                                    {users.slice(0, 10).map((user) => (
                                         <Table.Row
                                             className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
-                                            key={product.id}>
+                                            key={user.id}>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
-                                                {product.id}
+                                                onClick={() => window.location.href = "/users/" + user.id}>
+                                                {user.id}
                                             </Table.Cell>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
-                                                {product.libelle}
+                                                onClick={() => window.location.href = "/users/" + user.id}>
+                                                {user.username}
                                             </Table.Cell>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
-                                                {product.reference}
+                                                onClick={() => window.location.href = "/users/" + user.id}>
+                                                {user.email}
                                             </Table.Cell>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
-                                                {product.typeProduit}
+                                                className="space-y-2"
+                                                onClick={() => window.location.href = "/users/" + user.id}>
+                                                {user.roles.map((role) => (
+                                                    <Badge
+                                                        key={role.id}
+                                                        color={role.name === "ROLE_ADMIN" ? "failure" : (role.name == "ROLE_ORGANISATEUR" ? "warning" : "success")}
+                                                        className="mr-1"
+                                                    >
+                                                        {role.name === "ROLE_ADMIN" ? "Administrateur" : (role.name == "ROLE_ORGANISATEUR" ? "Organisateur" : "Producteur")}
+                                                    </Badge>
+                                                )
+                                                )}
                                             </Table.Cell>
                                             <Table.Cell className="flex space-x-2">
-                                                <EditProductModal product={product}/>
-                                                <DeleteProductModal id={product.id}/>
+                                                <Button>
+                                                    <HiPencilAlt/>
+                                                    Modifier
+                                                </Button>
+                                                <DeleteUserModal id={user.id} fetchUsers={fetchData}/>
                                             </Table.Cell>
                                         </Table.Row>
                                     ))}
@@ -172,7 +175,7 @@ function Products() {
             </div>
 
         </ConnectedLayout>
-    );
+    )
 }
 
-export default Products;
+export default Users;

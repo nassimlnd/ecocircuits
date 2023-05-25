@@ -1,7 +1,7 @@
 import React from 'react';
 import {Avatar, Dropdown, Navbar} from "flowbite-react";
-import feuille from "../assets/feuille.png";
-import AuthService from "../services/AuthService";
+import feuille from "../../assets/feuille.png";
+import AuthService from "../../services/AuthService";
 
 function NavConnected() {
     const user = AuthService.getCurrentUser();

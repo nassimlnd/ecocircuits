@@ -1,6 +1,6 @@
 import React from "react";
-import Sidenav from "../components/Sidenav";
-import NavConnected from "../components/NavConnected";
+import Sidenav from "../components/navigation/Sidenav";
+import NavConnected from "../components/navigation/NavConnected";
 import FooterConnected from "../components/FooterConnected";
 
 function ConnectedLayout({children}) {

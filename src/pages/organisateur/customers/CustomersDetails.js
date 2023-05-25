@@ -116,23 +116,6 @@ function CustomersDetails() {
                         </div>
                     </div>
                 </div>
-
-                {/*<div className="md:w-2/3 h-96 rounded-lg shadow bg-white dark:bg-gray-800 ml-4">
-                    <div className="border-b border-gray-200 dark:border-gray-700 p-6 dark:text-white">
-                        <h1 className="font-semibold text-xl">Adresses du client</h1>
-                    </div>
-                    <div className="bg-gray-900 rounded m-3">
-                        <div className="flex p-5">
-                            <div className="bg-white p-4 space-y-1.5 dark:text-white rounded dark:bg-gray-800">
-                                <div className="text-lg font-medium border-b pb-2">Adresse n°1</div>
-                                <div>1 rue de la paix</div>
-                                <div>75000 Paris</div>
-                                <div>France</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*/}
-
             </div>
             <div className="md:flex space-y-2 md:space-y-4">
                 <div className="md:w-2/5 md:mt-4 mx-4 bg-white dark:bg-gray-800 dark:text-white rounded-lg shadow">
@@ -175,8 +158,7 @@ function CustomersDetails() {
                                 <div className="font-semibold">{customerOrders.length}</div>
                             </div>
                         </div>
-                        <div>
-                            CHART
+                        <div id="chart" className="">
                         </div>
                     </div>
                 </div>

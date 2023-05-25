@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Sidebar} from "flowbite-react";
 import {HiChartPie, HiShoppingCart, HiTruck, HiUsers} from "react-icons/hi";
 import {FaShoppingBasket} from "react-icons/fa";
-import AuthService from "../services/AuthService";
+import AuthService from "../../services/AuthService";
 
 function Sidenav() {
 
