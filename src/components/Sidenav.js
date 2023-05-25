@@ -6,8 +6,7 @@ import AuthService from "../services/AuthService";
 
 function Sidenav() {
 
-    const user = AuthService.getCurrentUser();
-    const [activePage, setActivePage] = useState("/");
+    const [activePage, setActivePage] = useState("");
 
     useEffect(() => {
         setActivePage(window.location.pathname);
@@ -33,7 +32,7 @@ function Sidenav() {
                         <Sidebar.Item
                             href="/orders"
                             icon={HiShoppingCart}
-                            active={activePage === "/orders"}
+                            active={activePage.includes("/orders")}
                         >Commandes</Sidebar.Item>
                         <Sidebar.Item
                             href="/products"
@@ -48,14 +47,14 @@ function Sidenav() {
                     </Sidebar.ItemGroup>
                     <Sidebar.ItemGroup>
                         <Sidebar.Item
-                            href="/producteurs"
+                            href="/producers"
                             icon={HiShoppingCart}
-                            active={activePage === "/admin/producteurs"}
+                            active={activePage.includes("/producers")}
                         >Producteurs</Sidebar.Item>
                         <Sidebar.Item
                             href="/customers"
                             icon={HiUsers}
-                            active={activePage === "/customers"}
+                            active={activePage.includes("/customers")}
                         >
                             Clients
                         </Sidebar.Item>

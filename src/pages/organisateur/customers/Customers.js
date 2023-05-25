@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import ConnectedLayout from "../../layouts/ConnectedLayout";
+import ConnectedLayout from "../../../layouts/ConnectedLayout";
 import {Breadcrumb, Button, Pagination, Spinner, Table} from "flowbite-react";
 import {HiHome, HiPencil, HiPencilAlt, HiTrash} from "react-icons/hi";
-import AddProductModal from "../../components/products/AddProductModal";
-import EditProductModal from "../../components/products/EditProductModal";
-import DeleteProductModal from "../../components/products/DeleteProductModal";
-import CustomersService from "../../services/CustomersService";
-import AddCustomerModal from "../../components/customers/AddCustomerModal";
-import DeleteCustomerModal from "../../components/customers/DeleteCustomerModal";
-import EditCustomerModal from "../../components/customers/EditCustomerModal";
+import AddProductModal from "../../../components/products/AddProductModal";
+import EditProductModal from "../../../components/products/EditProductModal";
+import DeleteProductModal from "../../../components/products/DeleteProductModal";
+import CustomersService from "../../../services/CustomersService";
+import AddCustomerModal from "../../../components/customers/AddCustomerModal";
+import DeleteCustomerModal from "../../../components/customers/DeleteCustomerModal";
+import EditCustomerModal from "../../../components/customers/EditCustomerModal";
 
 function Customers() {
 

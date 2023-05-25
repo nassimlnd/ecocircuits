@@ -2,27 +2,24 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/App.css";
 import Dashboard from "./pages/Dashboard";
 import LoginForm from "./components/authentication/LoginForm";
-import Orders from "./pages/organisateur/Orders";
+import Orders from "./pages/organisateur/orders/Orders";
 import TourneesList from "./pages/TourneesList";
 import Vehicules from "./pages/Vehicules";
-import Products from "./pages/organisateur/Products";
+import Products from "./pages/organisateur/products/Products";
 import Error404 from "./components/error/404";
 import Home from "./pages/Home";
 import AuthService from "./services/AuthService";
-import Error403 from "./components/error/403";
 import Foot from "./components/Footer";
 import Nav from "./components/Nav";
 import NavConnected from "./components/NavConnected";
-import Sidenav from "./components/Sidenav";
 import React from "react";
-import FooterConnected from "./components/FooterConnected";
-import ConnectedLayout from "./layouts/ConnectedLayout";
-import {Navbar} from "flowbite-react";
-import AccountInfo from "./pages/AccountInfo";
-import OrdersDetails from "./pages/orders/OrdersDetails";
-import CreateOrder from "./pages/organisateur/CreateOrder";
+import AccountInfo from "./pages/account/AccountInfo";
+import OrdersDetails from "./pages/organisateur/orders/OrdersDetails";
+import CreateOrder from "./pages/organisateur/orders/CreateOrder";
 import TokenVerify from "./components/TokenVerify";
-import Customers from "./pages/organisateur/Customers";
+import Customers from "./pages/organisateur/customers/Customers";
+import CustomersDetails from "./pages/organisateur/customers/CustomersDetails";
+import Producers from "./pages/organisateur/producers/Producers";
 
 function App() {
     const user = AuthService.getCurrentUser();
@@ -57,7 +54,7 @@ function App() {
                                     <Route index element={<Dashboard/>}/>
                                     <Route path="/dashboard" element={<Dashboard/>}/>
                                     <Route path="/orders" element={<Orders/>}/>
-                                    <Route path="/order/:id" element={<OrdersDetails/>}/>
+                                    <Route path="/orders/:id" element={<OrdersDetails/>}/>
                                     <Route path="/orders/create" element={<CreateOrder/>}/>
                                     <Route path="/deliveries" element={<TourneesList/>}/>
                                     <Route path="/vehicules" element={<Vehicules/>}/>
@@ -65,6 +62,8 @@ function App() {
                                     <Route path="/account" element={<AccountInfo/>}/>
                                     <Route path="/logout" element={<LoginForm/>}/>
                                     <Route path="/customers" element={<Customers/>}/>
+                                    <Route path="/customers/:id" element={<CustomersDetails/>}/>
+                                    <Route path="/producers" element={<Producers/>}/>
                                     <Route path="*" element={<Error404/>}/>
                                 </Routes>
                             </TokenVerify>

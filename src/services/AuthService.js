@@ -111,9 +111,6 @@ class AuthService {
                 let now = new Date();
                 now = Math.round(now.getTime() / 1000);
 
-                console.log("Token exp : " + exp);
-                console.log("Now : " + now);
-
                 return exp > now;
             } catch (e) {
                 console.log(e);

@@ -1,8 +1,8 @@
 import {React, useEffect, useState} from "react";
 import {Breadcrumb, Button, Spinner, Table} from "flowbite-react";
-import CommandesService from "../../services/OrdersService";
-import AuthService from "../../services/AuthService";
-import ConnectedLayout from "../../layouts/ConnectedLayout";
+import CommandesService from "../../../services/OrdersService";
+import AuthService from "../../../services/AuthService";
+import ConnectedLayout from "../../../layouts/ConnectedLayout";
 import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
 
 function Orders() {
@@ -109,15 +109,15 @@ function Orders() {
                                     className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
                                     key={commande.id}>
                                     <Table.Cell
-                                        onClick={() => window.location.href = "/order/" + commande.id}>
+                                        onClick={() => window.location.href = "/orders/" + commande.id}>
                                         {commande.id}
                                     </Table.Cell>
                                     <Table.Cell
-                                        onClick={() => window.location.href = "/order/" + commande.id}>
+                                        onClick={() => window.location.href = "/orders/" + commande.id}>
                                         {commande.dateCommande}
                                     </Table.Cell>
                                     <Table.Cell
-                                        onClick={() => window.location.href = "/order/" + commande.id}>
+                                        onClick={() => window.location.href = "/orders/" + commande.id}>
                                         {commande.clientId}
                                     </Table.Cell>
                                     <Table.Cell className="flex space-x-2">

@@ -1,5 +1,5 @@
 import React from "react";
-import ConnectedLayout from "../layouts/ConnectedLayout";
+import ConnectedLayout from "../../layouts/ConnectedLayout";
 
 function AccountInfo() {
 

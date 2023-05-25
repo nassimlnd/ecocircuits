@@ -1,4 +1,3 @@
-import React from "react";
 import getInstance from "../helpers/axios_helper";
 
 let axios = getInstance();
@@ -25,6 +24,10 @@ class CustomersService {
 
     delete(id) {
         return axios.delete(API_URL + "/" + id);
+    }
+
+    getOrdersByCustomer(id) {
+        return axios.get(axios.defaults.baseURL + "/commandes/client/" + id);
     }
 }
 

@@ -1,4 +1,4 @@
-import {Fragment, React, useEffect, useRef, useState} from "react";
+import {Fragment, React, useRef, useState} from "react";
 import {Dialog, Transition} from "@headlessui/react";
 import {Button, Spinner, TextInput} from "flowbite-react";
 import {HiMail, HiPencilAlt} from "react-icons/hi";
@@ -22,7 +22,7 @@ export default function EditCustomerModal({customer, fetchCustomers}) {
             telephone: event.target.customerPhoneNumber.value,
         }
         const response = await CustomersService.update(customer.id, newCustomer);
-        console.log(response);
+        console.log(response.data);
         setLoading(false);
         if (response.status === 200) {
             setSuccessAnimation(true);

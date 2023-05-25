@@ -1,5 +1,5 @@
 import React from "react";
-import ConnectedLayout from "../../layouts/ConnectedLayout";
+import ConnectedLayout from "../../../layouts/ConnectedLayout";
 import {Breadcrumb, Button} from "flowbite-react";
 import {HiHome, HiPlus} from "react-icons/hi";
 

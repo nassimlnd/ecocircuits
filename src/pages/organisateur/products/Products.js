@@ -1,12 +1,12 @@
 import {React, useEffect, useRef, useState} from "react";
-import AuthService from "../../services/AuthService";
-import ConnectedLayout from "../../layouts/ConnectedLayout";
+import AuthService from "../../../services/AuthService";
+import ConnectedLayout from "../../../layouts/ConnectedLayout";
 import {Breadcrumb, Pagination, Spinner, Table} from "flowbite-react";
 import {HiHome} from "react-icons/hi";
-import ProductsService from "../../services/ProductsService";
-import AddProductModal from "../../components/products/AddProductModal";
-import DeleteProductModal from "../../components/products/DeleteProductModal";
-import EditProductModal from "../../components/products/EditProductModal";
+import ProductsService from "../../../services/ProductsService";
+import AddProductModal from "../../../components/products/AddProductModal";
+import DeleteProductModal from "../../../components/products/DeleteProductModal";
+import EditProductModal from "../../../components/products/EditProductModal";
 
 function Products() {
 

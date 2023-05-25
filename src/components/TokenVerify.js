@@ -7,7 +7,6 @@ function TokenVerify({children}) {
 
     if (user) {
         if (AuthService.tokenIsValid()) {
-            console.log("Token is valid");
         } else {
             AuthService.logout();
             window.location.href = "/login";
