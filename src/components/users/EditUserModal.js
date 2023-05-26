@@ -1,34 +1,83 @@
-import {Fragment, React, useRef, useState} from "react";
+import {Fragment, React, useEffect, useRef, useState} from "react";
 import {Dialog, Transition} from "@headlessui/react";
-import {Button, Spinner, TextInput} from "flowbite-react";
+import {Button, Checkbox, Label, Spinner, TextInput} from "flowbite-react";
 import {HiMail, HiPencilAlt} from "react-icons/hi";
 import CustomersService from "../../services/CustomersService";
+import UsersService from "../../services/UsersService";
 
-export default function EditUserModal({customer, fetchCustomers}) {
+export default function EditUserModal({user, fetchUsers}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [successAnimation, setSuccessAnimation] = useState(false);
     const [errorAnimation, setErrorAnimation] = useState(false);
 
+    const [admin, setAdmin] = useState(false);
+    const [orga, setOrga] = useState(false);
+    const [prod, setProd] = useState(false);
+
     const cancelButtonRef = useRef(null);
 
-    const onEditCustomer = async (event) => {
+    const setRoles = () => {
+        user.roles.map((role) => {
+            switch (role.name) {
+                case "ROLE_ADMIN":
+                    setAdmin(true);
+                    break;
+                case "ROLE_ORGANISATEUR":
+                    setOrga(true);
+                    break;
+                case "ROLE_PRODUCTEUR":
+                    setProd(true);
+                    break;
+            }
+        });
+    }
+
+    const handleAdminChange = () => {
+        setAdmin(!admin);
+    }
+
+    const handleOrgaChange = () => {
+        setOrga(!orga);
+    }
+
+    const handleProdChange = () => {
+        setProd(!prod);
+    }
+
+    const onEditUser = async (event) => {
         setLoading(true);
-        let newCustomer = {
-            id: customer.id,
-            nom: event.target.customerLastName.value,
-            prenom: event.target.customerFirstName.value,
-            email: event.target.customerEmail.value,
-            telephone: event.target.customerPhoneNumber.value,
+
+        const userRoles = [];
+
+        if (event.target.admin.checked) {
+            userRoles.push("admin");
         }
-        const response = await CustomersService.update(customer.id, newCustomer);
+        if (event.target.orga.checked) {
+            userRoles.push("orga");
+        }
+        if (event.target.prod.checked) {
+            userRoles.push("prod");
+        }
+
+        let newUser = {
+            username: event.target.userUsername.value,
+            email: event.target.userEmail.value,
+            password: event.target.userPassword.value,
+            roles: userRoles
+        }
+
+        console.log(newUser);
+
+        const response = await UsersService.updateUser(user.id, newUser);
         console.log(response.data);
+
         setLoading(false);
         if (response.status === 200) {
             setSuccessAnimation(true);
             setTimeout(() => {
                 setOpen(false);
-                fetchCustomers();
+                fetchUsers();
             }, 1500);
             setTimeout(() => {
                 setSuccessAnimation(false);
@@ -45,6 +94,7 @@ export default function EditUserModal({customer, fetchCustomers}) {
 
         event.preventDefault();
     }
+
 
 
     return (
@@ -100,7 +150,10 @@ export default function EditUserModal({customer, fetchCustomers}) {
             </style>
 
             <Button
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                    setRoles();
+                    setOpen(true);
+                }}
             >
                 <HiPencilAlt className="mr-2 text-lg"/>
                 Modifier
@@ -145,7 +198,7 @@ export default function EditUserModal({customer, fetchCustomers}) {
                                                 <div
                                                     className="flex items-start justify-between rounded-t px-5 pt-5 border-b border-gray-200 !p-6 dark:border-gray-700">
                                                     <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                                                        <strong>Modifier le client n°{customer.id}</strong>
+                                                        <strong>Modifier l'utilisateur n°{user.id}</strong>
                                                     </h3>
                                                     <button
                                                         onClick={() => setOpen(false)}
@@ -173,41 +226,41 @@ export default function EditUserModal({customer, fetchCustomers}) {
                                                         </svg>
                                                     </button>
                                                 </div>
-                                                <form onSubmit={onEditCustomer}>
+                                                <form onSubmit={onEditUser}>
                                                     <div className="p-6">
                                                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                                                             <div><label
                                                                 className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                                htmlFor="customerLastName">Nom</label>
+                                                                htmlFor="userUsername">Identifiant</label>
                                                                 <div className="flex mt-1">
                                                                     <div className="relative w-full"><input
                                                                         className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 rounded-lg p-2.5 text-sm"
-                                                                        id="customerLastName" name="customerLastName"
-                                                                        placeholder="François" required={true}
-                                                                        defaultValue={customer.nom}/></div>
+                                                                        id="userUsername" name="userUsername"
+                                                                        placeholder="francois37" required={true}
+                                                                        defaultValue={user.username}/></div>
                                                                 </div>
                                                             </div>
                                                             <div><label
                                                                 className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                                htmlFor="customerFirstName">Prenom</label>
+                                                                htmlFor="userPassword">Nouveau mot de passe</label>
                                                                 <div className="flex mt-1">
                                                                     <div className="relative w-full"><input
                                                                         className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 rounded-lg p-2.5 text-sm"
-                                                                        id="customerFirstName" name="customerFirstName"
-                                                                        placeholder="Claude" required={true}
-                                                                        defaultValue={customer.prenom}
+                                                                        id="userPassword" name="userPassword"
+                                                                        type="password"
+                                                                        placeholder="••••••••" required={true}
                                                                     /></div>
                                                                 </div>
                                                             </div>
                                                             <div><label
                                                                 className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                                htmlFor="customerEmail">Email</label>
+                                                                htmlFor="userEmail">Email</label>
                                                                 <div className="flex mt-1">
                                                                     <div className="relative w-full"><TextInput
                                                                         icon={HiMail}
-                                                                        id="customerEmail"
-                                                                        defaultValue={customer.email}
-                                                                        name="customerEmail"
+                                                                        id="userEmail"
+                                                                        defaultValue={user.email}
+                                                                        name="userEmail"
                                                                         type="email"
                                                                         placeholder="claude.françois@ecocircuits.com"
                                                                         required={true}
@@ -216,17 +269,49 @@ export default function EditUserModal({customer, fetchCustomers}) {
                                                             </div>
                                                             <div><label
                                                                 className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                                htmlFor="customerPhoneNumber">Numéro de
-                                                                téléphone</label>
+                                                                htmlFor="userRoles">Rôles</label>
                                                                 <div className="flex mt-1">
-                                                                    <div className="relative w-full"><input
-                                                                        className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 rounded-lg p-2.5 text-sm"
-                                                                        id="customerPhoneNumber"
-                                                                        name="customerPhoneNumber"
-                                                                        type="number"
-                                                                        placeholder="+33612345678" required={true}
-                                                                        defaultValue={customer.telephone}
-                                                                    />
+                                                                    <div className="relative w-full">
+                                                                        <div className="flex">
+                                                                            <Checkbox
+                                                                                id="admin"
+                                                                                name="admin"
+                                                                                label="Administrateur"
+                                                                                checked={admin}
+                                                                                onChange={handleAdminChange}
+                                                                            />
+                                                                            <Label
+                                                                                htmlFor="admin"
+                                                                                className="ml-2 text-sm text-gray-500 dark:text-gray-300">
+                                                                                Administrateur
+                                                                            </Label>
+                                                                        </div>
+                                                                        <div className="flex">
+                                                                            <Checkbox
+                                                                                id="orga"
+                                                                                name="orga"
+                                                                                label="Organisateur"
+                                                                                checked={orga}
+                                                                                onChange={handleOrgaChange}
+                                                                            />
+                                                                            <Label htmlFor="orga"
+                                                                                   className="ml-2 text-sm text-gray-500 dark:text-gray-300">
+                                                                                Organisateur
+                                                                            </Label>
+                                                                        </div>
+                                                                        <div className="flex">
+                                                                            <Checkbox
+                                                                                id="prod"
+                                                                                name="prod"
+                                                                                label="Producteur"
+                                                                                checked={prod}
+                                                                                onChange={handleProdChange}
+                                                                            />
+                                                                            <Label htmlFor="prod"
+                                                                                   className="ml-2 text-sm text-gray-500 dark:text-gray-300">
+                                                                                Producteur
+                                                                            </Label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -238,7 +323,7 @@ export default function EditUserModal({customer, fetchCustomers}) {
                                                         <button
                                                             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 focus:!ring-2 group flex h-min items-center justify-center p-0.5 text-center font-medium focus:z-10 rounded-lg"
                                                             type="submit"><span
-                                                            className="flex items-center rounded-md text-sm px-3 py-2">Modifier le client</span>
+                                                            className="flex items-center rounded-md text-sm px-3 py-2">Modifier l'utilisateur</span>
                                                         </button>
                                                         <button
                                                             className="text-white bg-red-700 hover:bg-red-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 focus:!ring-2 group flex h-min items-center justify-center p-0.5 text-center font-medium focus:z-10 rounded-lg"
@@ -267,17 +352,6 @@ export default function EditUserModal({customer, fetchCustomers}) {
                                                 {successAnimation && (
                                                     <div
                                                         className="flex flex-col items-center pt-4 mx-auto gap-y-6 text-center">
-                                                        {/*<svg stroke="currentColor" fill="none" stroke-width="0"
-                                                         viewBox="0 0 24 24" className="text-7xl text-green-600"
-                                                         height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                              stroke-width="2"
-                                                              d="M5 13l4 4L19 7"></path>
-                                                    </svg>
-                                                    <svg className="fill-green-500 h-16 w-16 animate-jump-in animate-once animate-ease-out animate-normal animate-fill-forwards"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="#000000" width="800px" height="800px" viewBox="0 0 256 256" id="Flat">
-                                                        <path d="M174.89307,101.2384a3.99936,3.99936,0,0,1-.13184,5.65528l-58.666,56a3.99989,3.99989,0,0,1-5.52343,0l-29.334-28a4,4,0,0,1,5.52344-5.78711l26.57227,25.36377,55.90429-53.36377A3.99936,3.99936,0,0,1,174.89307,101.2384Zm53.10644,26.76172a100,100,0,1,1-100-100A100.113,100.113,0,0,1,227.99951,128.00012Zm-8,0a92,92,0,1,0-92,92A92.10447,92.10447,0,0,0,219.99951,128.00012Z"/>
-                                                    </svg>*/}
                                                         <svg
                                                             className="checkmark"
                                                             xmlns="http://www.w3.org/2000/svg"
@@ -292,7 +366,7 @@ export default function EditUserModal({customer, fetchCustomers}) {
                                                             />
                                                         </svg>
                                                         <p className="text-lg pb-8 dark:text-gray-300">
-                                                            Client modifié avec succès !
+                                                            Utilisateur modifié avec succès !
                                                         </p>
                                                     </div>
                                                 )}
@@ -313,7 +387,8 @@ export default function EditUserModal({customer, fetchCustomers}) {
                                                         </div>
 
                                                         <p className="text-lg mb-8 dark:text-gray-300">
-                                                            Une erreur est survenue lors de la modification du client.
+                                                            Une erreur est survenue lors de la modification de
+                                                            l'utilisateur.
                                                         </p>
                                                     </div>)}
                                             </div>)}

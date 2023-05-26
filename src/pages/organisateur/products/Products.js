@@ -17,7 +17,7 @@ function Products() {
         window.location.href = "/login";
     }
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {

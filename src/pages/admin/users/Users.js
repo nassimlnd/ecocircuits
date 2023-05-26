@@ -5,6 +5,7 @@ import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
 import UsersService from "../../../services/UsersService";
 import DeleteUserModal from "../../../components/users/DeleteUserModal";
 import AddUserModal from "../../../components/users/AddUserModal";
+import EditUserModal from "../../../components/users/EditUserModal";
 
 function Users() {
 
@@ -137,10 +138,7 @@ function Users() {
                                                 )}
                                             </Table.Cell>
                                             <Table.Cell className="flex space-x-2">
-                                                <Button>
-                                                    <HiPencilAlt/>
-                                                    Modifier
-                                                </Button>
+                                                <EditUserModal user={user} fetchUsers={fetchData}/>
                                                 <DeleteUserModal id={user.id} fetchUsers={fetchData}/>
                                             </Table.Cell>
                                         </Table.Row>

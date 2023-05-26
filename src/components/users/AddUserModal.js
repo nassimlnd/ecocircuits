@@ -197,7 +197,7 @@ export default function AddUserModal({fetchUsers}) {
                                                             </div>
                                                             <div><label
                                                                 className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                                                                htmlFor="userPassword">Password</label>
+                                                                htmlFor="userPassword">Mot de passe</label>
                                                                 <div className="flex mt-1">
                                                                     <div className="relative w-full"><input
                                                                         type="password"
