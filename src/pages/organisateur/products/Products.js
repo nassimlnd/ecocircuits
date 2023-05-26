@@ -121,19 +121,19 @@ function Products() {
                                             className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
                                             key={product.id}>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
+                                                onClick={() => window.location.href = "/products/" + product.id}>
                                                 {product.id}
                                             </Table.Cell>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
+                                                onClick={() => window.location.href = "/products/" + product.id}>
                                                 {product.libelle}
                                             </Table.Cell>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
+                                                onClick={() => window.location.href = "/products/" + product.id}>
                                                 {product.reference}
                                             </Table.Cell>
                                             <Table.Cell
-                                                onClick={() => window.location.href = "/product/" + product.id}>
+                                                onClick={() => window.location.href = "/products/" + product.id}>
                                                 {product.typeProduit}
                                             </Table.Cell>
                                             <Table.Cell className="flex space-x-2">

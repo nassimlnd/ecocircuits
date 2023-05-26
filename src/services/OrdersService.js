@@ -5,24 +5,29 @@ let axios = getInstance();
 const API_URL = axios.defaults.baseURL + "/commandes";
 
 class OrdersService {
-  async getCommandes() {
-    return axios.get(API_URL);
-  }
+    async getCommandes() {
+        return axios.get(API_URL);
+    }
 
-  getCommande(id) {
-    return axios.get(API_URL + "/" + id);
-  }
+    getOrders(id) {
+        return axios.get(API_URL + "/" + id);
+    }
 
-  createCommande(commande) {
-    return axios.post(API_URL, commande);
-  }
+    createOrders(commande) {
+        return axios.post(API_URL, commande);
+    }
 
-  updateCommande(id, commande) {
-    return axios.put(API_URL + "/" + id, commande);
-  }
+    updateOrders(id, commande) {
+        return axios.put(API_URL + "/" + id, commande);
+    }
 
-  deleteCommande(id) {
-    return axios.delete(API_URL + "/" + id);
-  }
+    deleteOrders(id) {
+        return axios.delete(API_URL + "/" + id);
+    }
+
+    getOrdersByProduct(id) {
+        return axios.get(API_URL + "/produit/" + id);
+    }
 }
+
 export default new OrdersService();

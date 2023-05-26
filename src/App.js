@@ -22,6 +22,7 @@ import CustomersDetails from "./pages/organisateur/customers/CustomersDetails";
 import Producers from "./pages/organisateur/producers/Producers";
 import Users from "./pages/admin/users/Users";
 import UsersDetails from "./pages/admin/users/UsersDetails";
+import ProductDetails from "./pages/organisateur/products/ProductDetails";
 
 function App() {
     const user = AuthService.getCurrentUser();
@@ -61,6 +62,7 @@ function App() {
                                     <Route path="/deliveries" element={<TourneesList/>}/>
                                     <Route path="/vehicules" element={<Vehicules/>}/>
                                     <Route path="/products" element={<Products/>}/>
+                                    <Route path="/products/:id" element={<ProductDetails/>}/>
                                     <Route path="/account" element={<AccountInfo/>}/>
                                     <Route path="/logout" element={<LoginForm/>}/>
                                     <Route path="/customers" element={<Customers/>}/>

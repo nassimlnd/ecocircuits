@@ -26,6 +26,10 @@ class ProducersService {
         return axios.delete(API_URL + '/' + id);
     }
 
+    getProducersByProduct(id) {
+        return axios.get(API_URL + "/produit/" + id);
+    }
+
 }
 
 export default new ProducersService();
