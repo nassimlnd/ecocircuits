@@ -1,28 +1,30 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/App.css";
-import Dashboard from "./pages/Dashboard";
-import LoginForm from "./components/authentication/LoginForm";
-import Orders from "./pages/organisateur/orders/Orders";
-import TourneesList from "./pages/TourneesList";
-import Vehicules from "./pages/Vehicules";
-import Products from "./pages/organisateur/products/Products";
-import Error404 from "./components/error/404";
-import Home from "./pages/Home";
+import {React, lazy} from "react";
 import AuthService from "./services/AuthService";
-import Foot from "./components/Footer";
-import Nav from "./components/navigation/Nav";
-import NavConnected from "./components/navigation/NavConnected";
-import React from "react";
-import AccountInfo from "./pages/account/AccountInfo";
-import OrdersDetails from "./pages/organisateur/orders/OrdersDetails";
-import CreateOrder from "./pages/organisateur/orders/CreateOrder";
-import TokenVerify from "./components/TokenVerify";
-import Customers from "./pages/organisateur/customers/Customers";
-import CustomersDetails from "./pages/organisateur/customers/CustomersDetails";
-import Producers from "./pages/organisateur/producers/Producers";
-import Users from "./pages/admin/users/Users";
-import UsersDetails from "./pages/admin/users/UsersDetails";
-import ProductDetails from "./pages/organisateur/products/ProductDetails";
+
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const LoginForm = lazy(() => import("./components/authentication/LoginForm"));
+const Orders = lazy(() => import('./pages/organisateur/orders/Orders'));
+const TourneesList = lazy(() => import("./pages/TourneesList"));
+const Vehicules = lazy(() => import("./pages/Vehicules"));
+const Products = lazy(() => import("./pages/organisateur/products/Products"));
+const Error404 = lazy(() => import("./components/error/404"));
+const Home = lazy(() => import("./pages/Home"));
+const Foot = lazy(() => import("./components/Footer"));
+const Nav = lazy(() => import("./components/navigation/Nav"));
+const NavConnected = lazy(() => import("./components/navigation/NavConnected"));
+const AccountInfo = lazy(() => import("./pages/account/AccountInfo"));
+const OrdersDetails = lazy(() => import("./pages/organisateur/orders/OrdersDetails"));
+const CreateOrder = lazy(() => import("./pages/organisateur/orders/CreateOrder"));
+const TokenVerify = lazy(() => import("./components/TokenVerify"));
+const Customers = lazy(() => import("./pages/organisateur/customers/Customers"));
+const CustomersDetails = lazy(() => import("./pages/organisateur/customers/CustomersDetails"));
+const Producers = lazy(() => import("./pages/organisateur/producers/Producers"));
+const Users = lazy(() => import("./pages/admin/users/Users"));
+const UsersDetails = lazy(() => import("./pages/admin/users/UsersDetails"));
+const ProductDetails = lazy(() => import("./pages/organisateur/products/ProductDetails"));
+const AboutUs = lazy(() => import("./pages/AboutUs"));
 
 function App() {
     const user = AuthService.getCurrentUser();
@@ -42,7 +44,7 @@ function App() {
                             <Routes>
                                 <Route index element={<Home/>}/>
                                 <Route path="/login" element={<LoginForm/>}/>
-                                <Route path="/aboutus" element={<LoginForm/>}/>
+                                <Route path="/aboutus" element={<AboutUs />}/>
                                 <Route path="/features" element={<LoginForm/>}/>
                                 <Route path="/contact" element={<LoginForm/>}/>
                                 <Route path="*" element={<Error404/>}/>

@@ -6,10 +6,14 @@ function Dashboard() {
 
     return (
         <ConnectedLayout>
-            <div className="flex items-center">
-                <main>
-                    <h1>Tableau de bord</h1>
-                </main>
+            <div className="flex-grow">
+                <div className="dark:text-white p-4 dark:bg-gray-800">
+                    <div className="text-xl font-medium">Tableau de bord</div>
+                </div>
+
+                <div className="">
+
+                </div>
             </div>
         </ConnectedLayout>
     )

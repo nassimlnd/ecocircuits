@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from "../assets/logo.png";
-import {HiHome} from "react-icons/hi";
 import {Button} from "flowbite-react";
-import {BarChart, DeliveryTruck, Package} from "fluent-emoji";
+import Package from "../assets/svg/Package.svg";
+import DeliveryTruck from "../assets/svg/DeliveryTruck.svg"
+import BarChart from "../assets/svg/BarChart.svg"
 
 class Home extends React.Component {
 
@@ -17,7 +18,7 @@ class Home extends React.Component {
                                 nouvelle ère pour les circuits courts : découvrez notre plateforme tout-en-un, optimisée
                                 pour les producteurs, qui simplifie la gestion des stocks, des commandes et des
                                 tournées, pour une expérience fluide et rentable.</p>
-                            <a href="#"
+                            <a href="/aboutus"
                                className="bg-blue-600 hover:bg-blue-500 inline-flex justify-center items-center py-3 px-5 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
                                 Découvrir
                                 <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -27,7 +28,7 @@ class Home extends React.Component {
                                           clip-rule="evenodd"></path>
                                 </svg>
                             </a>
-                            <a href="#"
+                            <a href="/contact"
                                className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
                                 Contactez-nous
                             </a>
@@ -43,7 +44,7 @@ class Home extends React.Component {
                         <div className="bg-white md:w-1/3 p-8 dark:bg-gray-800 dark:rounded">
                             <div className="flex pb-4 items-center space-x-5">
                                 <div>
-                                    <BarChart className="w-12"/>
+                                    <img src={BarChart} className="w-12" alt="Emoji graph en barre"/>
                                 </div>
                                 <div className="text-lg font-medium">
                                     Visualisez et gérez vos stocks en temps réel !
@@ -69,7 +70,7 @@ class Home extends React.Component {
                         <div className="bg-white md:border-l md:dark:border-0 border-gray-200 md:w-1/3 p-8 dark:bg-gray-800 dark:rounded">
                             <div className="flex pb-4 items-center space-x-5">
                                 <div>
-                                    <Package className="w-16"/>
+                                    <img src={Package} className="w-16" alt="Emoji boite"/>
                                 </div>
                                 <div className="text-lg font-medium">
                                     Gérez vos commandes et vos tournées en quelques clics !
@@ -95,7 +96,7 @@ class Home extends React.Component {
                         <div className="bg-white md:border-l md:dark:border-0 border-gray-200 md:w-1/3 p-8 dark:bg-gray-800 dark:rounded">
                             <div className="flex pb-4 items-center space-x-5">
                                 <div>
-                                    <DeliveryTruck className="w-16"/>
+                                        <img src={DeliveryTruck} className="w-16"/>
                                 </div>
                                 <div className="text-lg font-medium">
                                     Automatisez vos tournées et optimisez vos livraisons !

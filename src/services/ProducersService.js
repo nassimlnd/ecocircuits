@@ -30,6 +30,9 @@ class ProducersService {
         return axios.get(API_URL + "/produit/" + id);
     }
 
+    getProducersByOrder(id) {
+        return axios.get(API_URL + "/commande/" + id);
+    }
 }
 
 export default new ProducersService();

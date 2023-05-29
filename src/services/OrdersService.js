@@ -28,6 +28,10 @@ class OrdersService {
     getOrdersByProduct(id) {
         return axios.get(API_URL + "/produit/" + id);
     }
+
+    getOrdersDetails(id) {
+        return axios.get(API_URL + "/info/" + id);
+    }
 }
 
 export default new OrdersService();

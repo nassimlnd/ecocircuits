@@ -31,6 +31,10 @@ class ProductsService {
         return axios.get(API_URL + "/producteur/" + id);
     }
 
+    getProductsByOrder(id) {
+        return axios.get(API_URL + "/commande/" + id);
+    }
+
 }
 
 export default new ProductsService();
