@@ -13,9 +13,9 @@ class OrdersService {
         return axios.get(API_URL + "/" + id);
     }
 
-    createOrders(commande) {
+    /*createOrders(commande) {
         return axios.post(API_URL, commande);
-    }
+    }*/
 
     updateOrders(id, commande) {
         return axios.put(API_URL + "/" + id, commande);

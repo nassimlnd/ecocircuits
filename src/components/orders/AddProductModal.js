@@ -5,12 +5,11 @@ import ProductsService from "../../services/ProductsService";
 import ComboboxProducts from "./ComboboxProducts";
 import {all} from "axios";
 
-export default function AddProductModal({products, setProducts}) {
+export default function AddProductModal({products, addProduct}) {
     const [open, setOpen] = useState(false);
     const [allProducts, setAllProducts] = useState([])
-    const [selectedProduct, setSelectedProduct] = useState();
-
-    const [prod, setProd] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState({});
+    const [quantite, setQuantite] = useState(1);
 
     const cancelButtonRef = useRef(null);
 
@@ -23,18 +22,21 @@ export default function AddProductModal({products, setProducts}) {
         fetchProducts();
     }, [])
 
-    const onAddProduct = () => {
-        setProducts([]);
-        let quantite = document.getElementById("quantite").value;
-        selectedProduct.quantite = quantite;
-        console.log(selectedProduct);
-        prod.push(selectedProduct);
-        console.log(prod);
-        console.log(products);
-        setOpen(false);
-        setProducts(prod);
+    const handleQuantityChange = event => {
+        const value = Math.max(1, Math.min(9999, Number(event.target.value)));
+        setQuantite(value);
     }
 
+
+    const handleAddClick = () => {
+        console.log(selectedProduct);
+        if (selectedProduct.libelle != null && document.getElementById("quantite").value !== "") {
+            selectedProduct.quantite = document.getElementById("quantite").value;
+            addProduct(selectedProduct);
+            setOpen(false);
+            setSelectedProduct({});
+        }
+    }
 
     return (
         <>
@@ -129,7 +131,7 @@ export default function AddProductModal({products, setProducts}) {
                                                         <div className="flex mt-1">
                                                             <div className="relative w-full"><input
                                                                 className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 rounded-lg p-2.5 text-sm"
-                                                                id="quantite" name="quantite" type="number"
+                                                                id="quantite" name="quantite" type="number" value={quantite} onChange={handleQuantityChange}
                                                                 placeholder="159"/></div>
                                                         </div>
                                                     </div>
@@ -139,7 +141,7 @@ export default function AddProductModal({products, setProducts}) {
                                         <div
                                             className="flex items-center space-x-2 rounded-b border-gray-200 p-6 dark:border-gray-600 border-t">
                                             <Button
-                                                onClick={onAddProduct}
+                                                onClick={handleAddClick}
                                             >
                                                 Ajouter le produit
                                             </Button>
