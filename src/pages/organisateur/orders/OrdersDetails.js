@@ -50,8 +50,8 @@ function OrdersDetails() {
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </div>
-                <div className="flex p-4">
-                    <div className="bg-white dark:bg-gray-800 w-1/2 shadow rounded-lg dark:text-white p-12">
+                <div className="flex p-4 overflow-x-hidden">
+                    <div className="bg-white dark:bg-gray-800 md:w-1/2 shadow rounded-lg dark:text-white p-12">
                         <div className="flex mb-8">
                             <div className="w-1/2">
                                 <div className="text-xl font-bold">COMMANDE #{params.id}</div>
