@@ -9,7 +9,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="pt-12 md:pt-0">
                 <section className="bg-white dark:bg-gray-900">
                     <div className="grid border-b border-gray-200 dark:border-gray-700 py-8 px-4 mx-auto max-w-screen-xl lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
                         <div className="place-self-center mr-auto lg:col-span-7">
