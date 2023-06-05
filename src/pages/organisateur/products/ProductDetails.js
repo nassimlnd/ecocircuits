@@ -142,7 +142,7 @@ function ProductDetails() {
                                         <Table.Row
                                             className="cursor-pointer bg-white dark:bg-gray-800 dark:text-white font-semibold border-b border-gray-200 dark:border-gray-700"
                                             onClick={() => {
-                                                window.location.href = "/producers/" + order.id;
+                                                window.location.href = "/orders/" + order.id;
                                             }}
                                             key={order.id}>
                                             <Table.Cell>

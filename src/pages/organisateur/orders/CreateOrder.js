@@ -1,13 +1,15 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState, Fragment} from "react";
 import ConnectedLayout from "../../../layouts/ConnectedLayout";
-import {Breadcrumb, Button, Label, Select, Spinner, Table, TextInput} from "flowbite-react";
+import {Badge, Breadcrumb, Button, Label, Select, Spinner, Table, TextInput} from "flowbite-react";
 import {HiHome, HiPlus} from "react-icons/hi";
 import CustomersService from "../../../services/CustomersService";
 import AddProductModal from "../../../components/orders/AddProductModal";
 import ProducersService from "../../../services/ProducersService";
 import {GoogleMap, Marker, MarkerF, useLoadScript} from "@react-google-maps/api";
 import Geocode from "react-geocode"
-import {Tab, Transition} from "@headlessui/react";
+import {Listbox, Tab, Transition} from "@headlessui/react";
+import {ArrowLeftIcon, CheckIcon, ChevronUpDownIcon} from "@heroicons/react/20/solid";
+import {HiCheck, HiArrowLeft} from "react-icons/hi"
 
 function CreateOrder() {
     const [loading, setLoading] = useState(false);
@@ -23,11 +25,18 @@ function CreateOrder() {
     const [step3, setStep3] = useState(false);
 
     const [customers, setCustomers] = useState([]);
+    const [selectedCustomer, setSelectedCustomer] = useState({});
+    const [selectedAdresse, setSelectedAdresse] = useState({});
     const [products, setProducts] = useState([]);
     const [producers, setProducers] = useState([]);
 
     const showProducersOnMap = (product_id) => {
 
+    }
+
+    const handleSelectCustomer = (customer) => {
+        setSelectedAdresse({});
+        setSelectedCustomer(customer);
     }
 
     const handlePositionChange = event => {
@@ -69,6 +78,28 @@ function CreateOrder() {
         }
     }
 
+    const backStep = () => {
+        if (step3) {
+            setStep2(true)
+            setStep3(false);
+            document.getElementById("step3").classList.remove("bg-blue-700")
+            document.getElementById("step3").classList.add("bg-gray-300");
+            document.getElementById("step3").classList.add("dark:bg-gray-700");
+            document.getElementById("step2").classList.remove("bg-gray-300");
+            document.getElementById("step2").classList.remove("dark:bg-gray-700");
+            document.getElementById("step2").classList.add("bg-blue-700");
+        } else if (step2) {
+            setStep2(false);
+            setStep1(true);
+            document.getElementById("step2").classList.remove("bg-blue-700")
+            document.getElementById("step2").classList.add("bg-gray-300");
+            document.getElementById("step2").classList.add("dark:bg-gray-700");
+            document.getElementById("step1").classList.remove("bg-gray-300");
+            document.getElementById("step1").classList.remove("dark:bg-gray-700");
+            document.getElementById("step1").classList.add("bg-blue-700");
+        }
+    }
+
     const addProduct = async (selected) => {
         setLoading(true)
         products.push(selected);
@@ -94,6 +125,8 @@ function CreateOrder() {
             setLoading(true)
             const responseCustomers = await CustomersService.getAll();
             setCustomers(responseCustomers.data);
+            setSelectedCustomer(responseCustomers.data[0]);
+            console.log(responseCustomers.data);
             setLoading(false);
         }
 
@@ -127,14 +160,18 @@ function CreateOrder() {
                     </Breadcrumb>
                     <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Créer une
                         nouvelle commande</h1>
-                    <div className="flex justify-center space-x-2 pt-4">
-                        <div id="step1" className="h-1 w-8 bg-blue-700">
-                        </div>
-                        <div id="step2" className="h-1 w-8 bg-gray-300 dark:bg-gray-700">
-                        </div>
-                        <div id="step3" className="h-1 w-8 bg-gray-300 dark:bg-gray-700">
+                    <div>
+                        <div className="flex justify-center items-center space-x-2 pt-8">
+                            {step2 || step3 ? (<Button color="gray" className="absolute left-4" onClick={backStep}><HiArrowLeft className="mr-2"/>Retour</Button>) : null}
+                            <div id="step1" className="h-1 w-8 bg-blue-700">
+                            </div>
+                            <div id="step2" className="h-1 w-8 bg-gray-300 dark:bg-gray-700">
+                            </div>
+                            <div id="step3" className="h-1 w-8 bg-gray-300 dark:bg-gray-700">
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div className="dark:bg-gray-900 dark:text-white">
@@ -147,7 +184,7 @@ function CreateOrder() {
 
                     <div id="form"
                          className="md:flex md:space-x-4 md:justify-center space-y-2 md:-space-y-0 md:pt-12 pt-4 md:pl-4">
-                        <div className="p-8 rounded-lg bg-white dark:bg-gray-800 shadow md:w-1/2">
+                        <div className="p-8 rounded-lg bg-white dark:bg-gray-800 shadow mx-4 md:w-1/2">
                             <div className="border-b border-gray-200 dark:border-gray-700 pb-3">
                                 <Label
                                     className="text-lg"
@@ -155,30 +192,88 @@ function CreateOrder() {
                                 >
                                     Choix du client
                                 </Label>
-                                <Select
-                                    id="customers"
-                                    required>
-                                    {customers.map((customer) => (<option
-                                        key={customer.id}
-                                    >
-                                        {customer.nom} {customer.prenom}
-                                    </option>))}
-                                </Select>
+                                <Listbox
+                                    value={selectedCustomer}
+                                    onChange={
+                                        handleSelectCustomer
+                                    }>
+                                    <div className="relative mt-1">
+                                        <Listbox.Button
+                                            className="relative w-full cursor-default rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                                            <span
+                                                className="block truncate">{selectedCustomer.nom} {selectedCustomer.prenom}</span>
+                                            <span
+                                                className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                                <ChevronUpDownIcon
+                                                    className="h-5 w-5 text-gray-400 cursor-pointer"
+                                                    aria-hidden="true"
+                                                />
+                                            </span>
+                                        </Listbox.Button>
+                                        <Transition
+                                            as={Fragment}
+                                            leave="transition ease-in duration-100"
+                                            leaveFrom="opacity-100"
+                                            leaveTo="opacity-0"
+                                        >
+                                            <Listbox.Options
+                                                className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-gray-800 py-1 text-base dark:text-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                {customers.map((person, personIdx) => (<Listbox.Option
+                                                    key={personIdx}
+                                                    className={({active}) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-blue-100 text-blue-900 dark:text-blue-900' : 'text-gray-900 dark:text-white'}`}
+                                                    value={person}
+                                                >
+                                                    {({selected}) => (<>
+                                                        <span
+                                                            className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>
+                                                            {person.nom} {person.prenom}
+                                                        </span>
+                                                        {selected ? (
+                                                            <span
+                                                                className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600">
+                                                            <CheckIcon className="h-5 w-5" aria-hidden="true"/>
+                                                        </span>) : null}
+                                                    </>)}
+                                                </Listbox.Option>))}
+                                            </Listbox.Options>
+                                        </Transition>
+                                    </div>
+                                </Listbox>
                             </div>
                             <div className="pt-3">
-                                <div className="font-medium">Adresse de livraison</div>
-                                <div className="pt-4 space-y-3 flex flex-col items-center">
-                                    <TextInput
-                                        id="deliveryAddress"
-                                        className="w-2/3"
-                                        placeholder="Adresse"
-                                    />
-                                    <TextInput id="deliveryPostalCode" className="w-2/3"
-                                               placeholder="Code Postal"/>
-                                    <TextInput id="deliveryCity" className="w-2/3" placeholder="Ville"/>
+                                <div className="font-medium">Adresses de livraison</div>
+                                <div
+                                    className="m-4 rounded-lg p-6 space-x-3 bg-gray-100 dark:bg-gray-900 flex items-center justify-start overflow-x-auto">
+                                    {selectedCustomer.adresses && selectedCustomer.adresses.map((adresse) => (
+                                        <div
+                                            key={adresse.id}
+                                            className="rounded cursor-pointer hover:dark:bg-gray-700 min-w-max p-4 dark:bg-gray-800 bg-white hover:bg-gray-200"
+                                            onClick={() => {
+                                                setSelectedAdresse(adresse);
+                                            }}
+                                        >
+                                            <div className="flex justify-between font-medium"><div>Adresse n°{selectedCustomer.adresses.indexOf(adresse) + 1}</div><div>{selectedAdresse === adresse ? (<Badge icon={HiCheck} color={"green"}/>) : null} </div></div>
+                                            <div className="pr-12">
+                                                <div>{adresse.rue}</div>
+                                                <div>{adresse.codePostal} {adresse.ville}</div>
+                                                <div>France</div>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    {selectedCustomer.adresses && selectedCustomer.adresses.length == 0 ? (
+                                        <div className="h-32 w-full flex flex-col items-center justify-center">Aucune adresse de livraison pour ce client.</div>
+                                    ) : null}
+
                                 </div>
+                                <div className="flex justify-end">
+                                    <Button
+                                        color="gray"
+                                    >Ajouter une adresse</Button>
+                                </div>
+
                             </div>
-                            <div className="pt-12 flex flex-col items-center">
+                            <div className="pt-8 flex flex-col items-center">
                                 <Button
                                     onClick={nextStep}
                                 >
@@ -206,7 +301,7 @@ function CreateOrder() {
                                     <AddProductModal products={products} addProduct={addProduct}/>
                                 </div>
                             </div>
-                            <div className="border-b border-gray-200 dark:border-gray-700 pb-3 h-4/5">
+                            <div className="border-b border-gray-200 dark:border-gray-700 overflow-x-auto pb-3 h-4/5">
                                 <Table hoverable={true}>
                                     <Table.Head>
                                         <Table.HeadCell>
@@ -270,7 +365,7 @@ function CreateOrder() {
                                 <div className="h-fit border-b border-gray-200 dark:border-gray-700 pb-3">
                                     <div className="text-lg font-medium">Produits</div>
                                 </div>
-                                <div className="pt-3 h-4/5">
+                                <div className="pt-3 h-4/5 overflow-x-auto">
                                     <Table hoverable={true}>
                                         <Table.Head>
                                             <Table.HeadCell>
@@ -283,9 +378,9 @@ function CreateOrder() {
                                                 Quantité
                                             </Table.HeadCell>
                                         </Table.Head>
-                                        <Table.Body className="bg-gray-50">
+                                        <Table.Body className="bg-gray-50 dark:bg-gray-800">
                                             {products.map((product) => (
-                                                <Table.Row className="bg-white cursor-pointer"
+                                                <Table.Row className="bg-white dark:bg-gray-800 cursor-pointer"
                                                            onClick={showProducersOnMap(product.id)}>
                                                     <Table.Cell>
                                                         {products.indexOf(product) + 1}
@@ -296,8 +391,7 @@ function CreateOrder() {
                                                     <Table.Cell>
                                                         {product.quantite}
                                                     </Table.Cell>
-                                                </Table.Row>
-                                            ))}
+                                                </Table.Row>))}
                                         </Table.Body>
                                     </Table>
                                 </div>
@@ -311,8 +405,7 @@ function CreateOrder() {
                             <div className="md:w-2/3">
                                 <GoogleMap zoom={10} center={center}
                                            mapContainerClassName="h-noscroll rounded-lg shadow">
-                                    {
-                                        /*products.map((product) => (
+                                    {/*products.map((product) => (
                                             product.producers.map((producer) => (
                                                 <MarkerF position={{lat: producer.latitude, lng: producer.longitude}}
                                                          onClick={() => {
@@ -322,8 +415,7 @@ function CreateOrder() {
                                                          onPositionChanged={handlePositionChange}
                                                 />
                                             ))
-                                        ))*/
-                                    }
+                                        ))*/}
                                 </GoogleMap>
                             </div>
                         </div>

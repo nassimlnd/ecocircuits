@@ -31,7 +31,8 @@ export default function AddProductModal({products, addProduct}) {
     const handleAddClick = () => {
         console.log(selectedProduct);
         if (selectedProduct.libelle != null && document.getElementById("quantite").value !== "") {
-            selectedProduct.quantite = document.getElementById("quantite").value;
+            selectedProduct.quantite = quantite;
+            setQuantite(1);
             addProduct(selectedProduct);
             setOpen(false);
             setSelectedProduct({});
@@ -74,7 +75,7 @@ export default function AddProductModal({products, addProduct}) {
                                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                             >
                                 <Dialog.Panel
-                                    className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl">
+                                    className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-xl">
                                     <div className="relative rounded-lg bg-white shadow dark:bg-gray-800">
                                         <div
                                             className="flex items-start justify-between rounded-t px-5 pt-5 border-b border-gray-200 !p-6 dark:border-gray-700">
