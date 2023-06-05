@@ -15,14 +15,14 @@ export default function ComboboxProducts({allProducts, selectedProduct, setSelec
 
     return (<>
         <Label htmlFor="allProducts">Choix du produit</Label>
-        <div className="border border-gray-200 rounded">
+        <div className="border border-gray-200 dark:border-gray-500 dark:text-white rounded-lg">
             <Combobox id="combobox" value={selectedProduct} onChange={setSelectedProduct}>
                 <div className="relative">
                     <div
-                        className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+                        className="relative w-full cursor-default overflow-hidden rounded-lg bg-white dark:bg-gray-900 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                         <Combobox.Input
                             id="allProducts"
-                            className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+                            className="w-full dark:bg-gray-700 border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 dark:text-white focus:ring-0"
                             displayValue={(product) => product.libelle}
                             onChange={(event) => {
                                 setQuery(event.target.value)
@@ -44,13 +44,13 @@ export default function ComboboxProducts({allProducts, selectedProduct, setSelec
                         afterLeave={() => setQuery('')}
                     >
                         <Combobox.Options
-                            className="absolute mt-1 max-h-32 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-50">
+                            className="absolute mt-1 max-h-32 w-full overflow-auto rounded-md bg-white dark:bg-gray-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm z-50 dark:text-white">
                             {(filteredProducts.length === 0 && query !== '') || queryLength === 0 ? (
-                                <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                                <div className="relative cursor-default select-none py-2 px-4 text-gray-700 dark:text-gray-500">
                                     Aucun produit trouvé.
                                 </div>) : (filteredProducts.map((product) => (<Combobox.Option
                                 key={product.id}
-                                className={({active}) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-blue-600 text-white' : 'text-gray-900'}`}
+                                className={({active}) => `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-blue-600 text-white' : 'text-gray-900 dark:text-white'}`}
                                 value={product}
                             >
                                 {({selected, active}) => (<>
