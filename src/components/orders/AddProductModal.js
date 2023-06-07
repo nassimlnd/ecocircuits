@@ -1,9 +1,9 @@
 import React, {Fragment, useEffect, useRef, useState} from "react";
-import {Button, Label, Select} from "flowbite-react";
-import {Combobox, Dialog, Transition} from "@headlessui/react";
+import {Button} from "flowbite-react";
+import {Dialog, Transition} from "@headlessui/react";
 import ProductsService from "../../services/ProductsService";
 import ComboboxProducts from "./ComboboxProducts";
-import {all} from "axios";
+import ProducersService from "../../services/ProducersService";
 
 export default function AddProductModal({products, addProduct}) {
     const [open, setOpen] = useState(false);
@@ -16,9 +16,12 @@ export default function AddProductModal({products, addProduct}) {
     useEffect(() => {
         const fetchProducts = async () => {
             const responseProducts = await ProductsService.getProducts();
+            responseProducts.data.map(async (product) => {
+                const responseProducersByProducts = await ProducersService.getProducersByProduct(product.id)
+                product.producers = responseProducersByProducts.data;
+            })
             setAllProducts(responseProducts.data);
         }
-
         fetchProducts();
     }, [])
 
@@ -91,7 +94,7 @@ export default function AddProductModal({products, addProduct}) {
                                                 <svg
                                                     stroke="currentColor"
                                                     fill="none"
-                                                    stroke-width="0"
+                                                    strokeWidth="0"
                                                     viewBox="0 0 24 24"
                                                     aria-hidden="true"
                                                     className="h-5 w-5"
@@ -100,9 +103,9 @@ export default function AddProductModal({products, addProduct}) {
                                                     xmlns="http://www.w3.org/2000/svg"
                                                 >
                                                     <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth="2"
                                                         d="M6 18L18 6M6 6l12 12"
                                                     ></path>
                                                 </svg>

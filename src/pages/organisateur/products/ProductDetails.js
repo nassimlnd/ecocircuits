@@ -40,7 +40,7 @@ function ProductDetails() {
         }
 
         fetchProduct();
-    }, []);
+    }, [params.id]);
 
     return (
         <ConnectedLayout>

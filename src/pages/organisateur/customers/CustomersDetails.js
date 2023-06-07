@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ConnectedLayout from "../../../layouts/ConnectedLayout";
-import {Breadcrumb, Table} from "flowbite-react";
-import {HiHome} from "react-icons/hi";
+import {Badge, Breadcrumb, Table} from "flowbite-react";
+import {HiCheck, HiHome} from "react-icons/hi";
 import {useParams} from "react-router-dom";
 import CustomersService from "../../../services/CustomersService";
 
@@ -122,27 +122,21 @@ function CustomersDetails() {
                     <div className="border-b border-gray-200 dark:border-gray-700 p-6 dark:text-white">
                         <h1 className="font-semibold text-xl">Adresses du client</h1>
                     </div>
-                    <div className="p-5 space-y-2">
-                        <div
-                            className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 flex border border-gray-200 dark:border-gray-700 p-4 rounded w-4/5">
-                            <div className="pl-4">
-                                <div className="font-medium">Adresse n°1</div>
-                                <div>1 rue de la paix</div>
-                                <div>75000 Paris</div>
-                                <div>France</div>
+                    <div
+                        className="m-4 rounded-lg p-6 space-x-3 bg-gray-100 dark:bg-gray-900 flex items-center justify-start overflow-x-auto">
+                        {customer.adresses && customer.adresses.map((adresse) => (
+                            <div
+                                key={adresse.id}
+                                className="rounded hover:dark:bg-gray-700 min-w-max p-4 dark:bg-gray-800 bg-white hover:bg-gray-200"
+                            >
+                                <div className="flex justify-between font-medium"><div>Adresse n°{customer.adresses.indexOf(adresse) + 1}</div></div>
+                                <div className="pr-12">
+                                    <div>{adresse.rue}</div>
+                                    <div>{adresse.codePostal} {adresse.ville}</div>
+                                    <div>France</div>
+                                </div>
                             </div>
-
-                        </div>
-                        <div
-                            className="cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 flex border border-gray-200 dark:border-gray-700 p-4 rounded w-4/5">
-                            <div className="pl-4">
-                                <div className="font-medium">Adresse n°1</div>
-                                <div>1 rue de la paix</div>
-                                <div>75000 Paris</div>
-                                <div>France</div>
-                            </div>
-
-                        </div>
+                        ))}
 
                     </div>
                 </div>
