@@ -10,6 +10,8 @@ import {Listbox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/20/solid";
 import {HiCheck, HiArrowLeft} from "react-icons/hi"
 import AddAddressModal from "../../../components/customers/AddAddressModal";
+import OrdersService from "../../../services/OrdersService";
+import ProdMarker from "../../../components/map/ProdMarker";
 
 function CreateOrder() {
     const [loading, setLoading] = useState(false);
@@ -30,18 +32,22 @@ function CreateOrder() {
     const [products, setProducts] = useState([]);
     const [producers, setProducers] = useState([]);
     const [mapSelectedProduct, setMapSelectedProduct] = useState({});
+    const [errorAnimation, setErrorAnimation] = useState(false);
+    const [successAnimation, setSuccessAnimation] = useState(false);
+    const [pendingAnimation, setPendingAnimation] = useState(false);
 
     const handleSelectCustomer = (customer) => {
         setSelectedAdresse({});
         setSelectedCustomer(customer);
     }
 
-    function onLaterClick() {
+    async function onLaterClick() {
         let commande = {
             customer: selectedCustomer,
             products: products,
             adresse: selectedAdresse,
         }
+
     }
 
     const goStep2 = () => {
@@ -198,7 +204,7 @@ function CreateOrder() {
                         client
                     </div>
 
-                    {!loading ? (
+                    {!loading && !pendingAnimation && !successAnimation && !errorAnimation ? (
                         <>
                             <div id="form"
                                  className="md:flex md:space-x-4 md:justify-center space-y-2 md:-space-y-0 md:pt-12 pt-4 md:pl-4">
@@ -322,7 +328,7 @@ function CreateOrder() {
                         </div>
                     )}
                 </>)}
-                {!loading && step2 && (<>
+                {!loading && !successAnimation && !errorAnimation && !pendingAnimation && step2 && (<>
                     <div
                         className="text-xl p-8 bg-white dark:bg-gray-800 font-medium border-b border-gray-200 dark:border-gray-700">Étape
                         2 : Contenu de la commande
@@ -399,7 +405,7 @@ function CreateOrder() {
                     </div>
                 </>)}
 
-                {!loading && step3 && isLoaded && (<>
+                {!loading && !successAnimation && !errorAnimation && !pendingAnimation && step3 && isLoaded && (<>
 
                     <div
                         className="text-xl font-medium border-b border-gray-200 dark:border-gray-700 p-8 bg-white dark:bg-gray-800">Étape
@@ -485,20 +491,106 @@ function CreateOrder() {
                                         </>
                                     )}
                                     {step3 && mapSelectedProduct.id > 0 ?
-                                        mapSelectedProduct.producers.map((producer) => <MarkerF
-                                            key={producer.id}
-                                            className="bg-blue-700"
-                                            position={{lat: producer.latitude, lng: producer.longitude}}
-                                            icon={{
-                                                url: require("../../../assets/svg/Tomato.svg").default,
-                                                scale: 10,
-                                            }}
-                                        />) : null}
+                                        mapSelectedProduct.producers.map((producer) => <ProdMarker producer={producer}
+                                                                                                   key={producer.id}/>) : null}
                                 </GoogleMap>
                             </div>
                         </div>
                     </div>
                 </>)}
+
+                {loading && (
+                    <div
+                        className="flex h-noscroll items-center justify-center rounded-t px-5 pt-5 px-3 pt-3 pb-0">
+                        {loading && (
+                            <div
+                                className="flex flex-col items-center pt-4 mx-auto gap-y-6 text-center">
+                                <Spinner
+                                    aria-label="Extra large spinner example"
+                                    size="xl"
+                                    className="text-center mb-4 mt-8"
+                                />
+                                <p className="text-lg mb-8 text-gray-500 dark:text-gray-300">
+                                    Chargement en cours...
+                                </p>
+                            </div>)}
+                        {successAnimation && (
+                            <div
+                                className="flex flex-col items-center pt-4 mx-auto gap-y-6 text-center">
+                                {/*<svg stroke="currentColor" fill="none" stroke-width="0"
+                                                         viewBox="0 0 24 24" className="text-7xl text-green-600"
+                                                         height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                              stroke-width="2"
+                                                              d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                    <svg className="fill-green-500 h-16 w-16 animate-jump-in animate-once animate-ease-out animate-normal animate-fill-forwards"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="#000000" width="800px" height="800px" viewBox="0 0 256 256" id="Flat">
+                                                        <path d="M174.89307,101.2384a3.99936,3.99936,0,0,1-.13184,5.65528l-58.666,56a3.99989,3.99989,0,0,1-5.52343,0l-29.334-28a4,4,0,0,1,5.52344-5.78711l26.57227,25.36377,55.90429-53.36377A3.99936,3.99936,0,0,1,174.89307,101.2384Zm53.10644,26.76172a100,100,0,1,1-100-100A100.113,100.113,0,0,1,227.99951,128.00012Zm-8,0a92,92,0,1,0-92,92A92.10447,92.10447,0,0,0,219.99951,128.00012Z"/>
+                                                    </svg>*/}
+                                <svg
+                                    className="checkmark"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 52 52"
+                                >
+                                    <circle className="checkmark__circle" cx="26" cy="26" r="25"
+                                            fill="none"/>
+                                    <path
+                                        className="checkmark__check"
+                                        fill="none"
+                                        d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                                    />
+                                </svg>
+                                <p className="text-lg pb-8 dark:text-gray-300">
+                                    Client crée avec succès !
+                                </p>
+                            </div>
+                        )}
+                        {errorAnimation && (
+                            <div
+                                className="flex flex-col items-center pt-4 mx-auto gap-y-6 text-center">
+                                <div
+                                    className="mb-4 mt-10 rounded-full border-4 border-red-600">
+                                    <svg className="fill-red-600"
+                                         stroke="currentColor" fill="none" stroke-width="0"
+                                         viewBox="0 0 24 24" className="text-7xl text-red-600"
+                                         height="1em" width="1em"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              stroke-width="2"
+                                              d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </div>
+
+                                <p className="text-lg mb-8 dark:text-gray-300">
+                                    Une erreur est survenue lors de la création du client.
+                                </p>
+                            </div>)}
+                        {pendingAnimation && (
+                            <>
+                                <div
+                                    className="flex flex-col items-center pt-4 mx-auto gap-y-6 text-center">
+                                    <div
+                                        className="mb-4 mt-10 rounded-full border-4 border-red-600">
+                                        <svg className="fill-red-600"
+                                             stroke="currentColor" fill="none" stroke-width="0"
+                                             viewBox="0 0 24 24" className="text-7xl text-orange-500"
+                                             height="1em" width="1em"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  stroke-width="2"
+                                                  d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </div>
+
+                                    <p className="text-lg mb-8 dark:text-gray-300">
+                                        La commande a été mise en attente.
+                                    </p>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     </ConnectedLayout>)

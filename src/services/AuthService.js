@@ -22,6 +22,7 @@ class AuthService {
                 }
             })
             .catch(error => {
+                console.log(error);
                 switch (error.response.status) {
                     case 400:
                         console.log("ERROR 400 : " + error.response.data);

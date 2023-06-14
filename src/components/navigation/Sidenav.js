@@ -3,6 +3,7 @@ import {Sidebar} from "flowbite-react";
 import {HiChartPie, HiShoppingCart, HiTruck, HiUsers} from "react-icons/hi";
 import {FaShoppingBasket} from "react-icons/fa";
 import AuthService from "../../services/AuthService";
+import SidebarCollapse from "flowbite-react/lib/esm/components/Sidebar/SidebarCollapse";
 
 function Sidenav() {
 
@@ -29,11 +30,19 @@ function Sidenav() {
                         >Tableau de bord</Sidebar.Item>
                     </Sidebar.ItemGroup>
                     <Sidebar.ItemGroup>
-                        <Sidebar.Item
-                            href="/orders"
+                        <SidebarCollapse
                             icon={HiShoppingCart}
-                            active={activePage.includes("/orders")}
-                        >Commandes</Sidebar.Item>
+                            label="Commandes"
+                        >
+                            <Sidebar.Item
+                                href="/orders"
+                                active={activePage === "/orders"}
+                            >Complètes</Sidebar.Item>
+                            <Sidebar.Item
+                                href="/orders/pending"
+                                active={activePage.includes("/orders/pending")}
+                            >En attente</Sidebar.Item>
+                        </SidebarCollapse>
                         <Sidebar.Item
                             href="/products"
                             icon={FaShoppingBasket}
