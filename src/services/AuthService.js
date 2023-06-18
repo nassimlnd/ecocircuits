@@ -1,10 +1,17 @@
 import getInstance from "../helpers/axios_helper";
 
 let axios = getInstance();
-
 const API_URL = axios.defaults.baseURL + "/auth";
 
+/**
+ * Service d'authentification
+ */
 class AuthService {
+    /**
+     * Fonction de connexion d'un utilisateur avec son username et son mot de passe
+     * @param username
+     * @param password
+     */
     login(username, password) {
         axios.post(API_URL + "/login", {
             username: username,
@@ -31,6 +38,12 @@ class AuthService {
 
     }
 
+    /**
+     * Fonction d'inscription d'un producteur
+     * @param username
+     * @param password
+     * @param email
+     */
     registerProd(username, password, email) {
         axios.post(API_URL + "/register", {
             username: username,
@@ -51,6 +64,12 @@ class AuthService {
             });
     }
 
+    /**
+     * Fonction d'inscription d'un organisateur
+     * @param username
+     * @param password
+     * @param email
+     */
     registerOrga(username, password, email) {
         axios.post(API_URL + "/register", {
             username: username,
@@ -71,34 +90,66 @@ class AuthService {
             });
     }
 
+    /**
+     * Fonction de déconnexion d'un utilisateur
+     */
     logout() {
         localStorage.removeItem("user");
     }
 
+    /**
+     * Fonction qui retourne le header d'authentification de l'utilisateur connecté pour les requêtes HTTP sécurisées à l'API
+     * @returns {{Authorization: string}}
+     */
     getAuthHeader() {
         return {Authorization: "Bearer " + JSON.parse(localStorage.getItem('user')).accessToken};
     }
 
+    /**
+     * Fonction qui retourne l'utilisateur connecté
+     * @returns {any}
+     */
     getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'));
     }
 
+    /**
+     * Fonction qui retourne les rôles de l'utilisateur connecté
+     * @returns {[string]|[string]|*}
+     */
     getCurrentUserRoles() {
         return JSON.parse(localStorage.getItem('user')).roles;
     }
 
+    /**
+     * Fonction qui vérifie si l'utilisateur est organisateur
+     * @returns {boolean}
+     */
     isOrga() {
         return localStorage.getItem('user') !== null && JSON.parse(localStorage.getItem('user')).roles.includes("ROLE_ORGA");
     }
 
+    /**
+     * Fonction qui vérifie si l'utilisateur est producteur
+     * @returns {boolean}
+     */
     isProd() {
         return localStorage.getItem('user') !== null && JSON.parse(localStorage.getItem('user')).roles.includes("ROLE_PROD");
     }
 
+    /**
+     * Fonction qui vérifie si l'utilisateur est admin
+     * @returns {boolean}
+     */
     isAdmin() {
         return localStorage.getItem('user') !== null && JSON.parse(localStorage.getItem('user')).roles.includes("ROLE_ADMIN");
     }
 
+
+    /**
+     * Fonction qui vérifie si le token de l'utilisateur précédent est valide
+     * @returns {string|boolean}
+     */
     tokenIsValid() {
         if (localStorage.getItem('user') !== null) {
             let token = JSON.parse(localStorage.getItem('user')).accessToken;

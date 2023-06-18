@@ -5,8 +5,10 @@ import Package from "../assets/svg/Package.svg";
 import DeliveryTruck from "../assets/svg/DeliveryTruck.svg"
 import BarChart from "../assets/svg/BarChart.svg"
 
+/**
+ * Page d'accueil
+ */
 class Home extends React.Component {
-
     render() {
         return (
             <div className="pt-12 md:pt-0">

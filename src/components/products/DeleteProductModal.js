@@ -4,6 +4,12 @@ import {Button, Spinner} from "flowbite-react";
 import {HiTrash} from "react-icons/hi";
 import ProductsService from "../../services/ProductsService";
 
+/**
+ * Modal de suppression d'un produit
+ * @param id
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function DeleteProductModal({id}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);

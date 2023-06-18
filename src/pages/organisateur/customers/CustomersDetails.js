@@ -5,6 +5,11 @@ import {HiCheck, HiHome} from "react-icons/hi";
 import {useParams} from "react-router-dom";
 import CustomersService from "../../../services/CustomersService";
 
+/**
+ * Page des détails d'un client
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function CustomersDetails() {
 
     const params = useParams();

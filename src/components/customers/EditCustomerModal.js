@@ -4,6 +4,13 @@ import {Button, Spinner, TextInput} from "flowbite-react";
 import {HiMail, HiPencilAlt} from "react-icons/hi";
 import CustomersService from "../../services/CustomersService";
 
+/**
+ * Modal d'édition d'un client
+ * @param customer
+ * @param fetchCustomers
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function EditCustomerModal({customer, fetchCustomers}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);

@@ -3,6 +3,12 @@ import Sidenav from "../components/navigation/Sidenav";
 import NavConnected from "../components/navigation/NavConnected";
 import FooterConnected from "../components/FooterConnected";
 
+/**
+ * Layout des pages lorsque l'utilisateur est connecté
+ * @param children
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function ConnectedLayout({children}) {
 
     /*const handleSidebar = () => {

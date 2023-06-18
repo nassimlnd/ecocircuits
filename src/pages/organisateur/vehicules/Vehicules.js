@@ -1,10 +1,15 @@
 import {React, useEffect, useState} from "react";
-import AuthService from "../services/AuthService";
-import VehiculesService from "../services/VehiculesService";
-import ConnectedLayout from "../layouts/ConnectedLayout";
+import AuthService from "../../../services/AuthService";
+import VehiculesService from "../../../services/VehiculesService";
+import ConnectedLayout from "../../../layouts/ConnectedLayout";
 import {Breadcrumb, Button, Spinner, Table} from "flowbite-react";
 import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
 
+/**
+ * Page des véhicules
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Vehicules = () => {
     if (!AuthService.getCurrentUser()) {
         window.location.href = "/login";

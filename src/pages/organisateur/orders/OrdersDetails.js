@@ -9,6 +9,11 @@ import Producers from "../producers/Producers";
 import ProducersService from "../../../services/ProducersService";
 import ProductsService from "../../../services/ProductsService";
 
+/**
+ * Page des détails d'une commande
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function OrdersDetails() {
     const params = useParams();
     const [loading, setLoading] = useState(false);

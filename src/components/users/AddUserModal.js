@@ -4,6 +4,12 @@ import {Button, Checkbox, Label, Spinner, TextInput} from "flowbite-react";
 import {HiMail} from "react-icons/hi";
 import UsersService from "../../services/UsersService";
 
+/**
+ * Modal d'ajout d'un utilisateur
+ * @param fetchUsers
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function AddUserModal({fetchUsers}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);

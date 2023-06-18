@@ -7,8 +7,12 @@ import DeleteUserModal from "../../../components/users/DeleteUserModal";
 import AddUserModal from "../../../components/users/AddUserModal";
 import EditUserModal from "../../../components/users/EditUserModal";
 
+/**
+ * Page utilisateurs de l'admin qui permet de gérer les utilisateurs
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Users() {
-
     const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);

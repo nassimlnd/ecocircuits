@@ -3,6 +3,11 @@ import {Avatar, Dropdown, Navbar} from "flowbite-react";
 import feuille from "../../assets/feuille.png";
 import AuthService from "../../services/AuthService";
 
+/**
+ * Barre de navigation principale lorsque l'utilisateur est connecté
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function NavConnected() {
     const user = AuthService.getCurrentUser();
 

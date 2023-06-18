@@ -2,17 +2,22 @@ import React from "react";
 import logo from "../../assets/logo.png";
 import AuthService from "../../services/AuthService";
 
+/**
+ * Fonction de connexion qui récupère les données du formulaire et les envoie au service d'authentification
+ */
 function onLogin() {
   const identifiant = document.getElementById("identifiant").value;
   const password = document.getElementById("password").value;
-
   /*console.log(identifiant);
   console.log(password);*/
-
   AuthService.login(identifiant, password);
-
 }
 
+/**
+ * Formulaire de connexion
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const LoginForm = () => {
 
   if (window.location.pathname === "/logout" && localStorage.getItem("user")) {

@@ -1,6 +1,12 @@
 import React from "react";
 import AuthService from "../services/AuthService";
 
+/**
+ * Vérifie si le token est valide
+ * @param children
+ * @returns {JSX.Element|boolean}
+ * @constructor
+ */
 function TokenVerify({children}) {
 
     const user = AuthService.getCurrentUser();

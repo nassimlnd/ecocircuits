@@ -5,6 +5,11 @@ import AuthService from "../../../services/AuthService";
 import ConnectedLayout from "../../../layouts/ConnectedLayout";
 import {HiHome, HiPencilAlt, HiTrash} from "react-icons/hi";
 
+/**
+ * Page des commandes
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Orders() {
 
     if (!AuthService.getCurrentUser()) {

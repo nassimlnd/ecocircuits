@@ -2,6 +2,11 @@ import React from "react";
 import {Footer} from "flowbite-react";
 import logo from "../assets/feuille.png";
 
+/**
+ * Pied de page
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Foot() {
 
     return (

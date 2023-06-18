@@ -5,6 +5,13 @@ import ProductsService from "../../services/ProductsService";
 import ComboboxProducts from "./ComboboxProducts";
 import ProducersService from "../../services/ProducersService";
 
+/**
+ * Modal d'ajout d'un produit à une commande
+ * @param products
+ * @param addProduct
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function AddProductModal({products, addProduct}) {
     const [open, setOpen] = useState(false);
     const [allProducts, setAllProducts] = useState([])

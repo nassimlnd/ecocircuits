@@ -3,6 +3,11 @@ import {Dialog, Transition} from "@headlessui/react";
 import {ExclamationTriangleIcon} from "@heroicons/react/24/outline";
 import {Button} from "flowbite-react";
 
+/**
+ * Modal d'ajout de produit
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function AddProductModal() {
     const [open, setOpen] = useState(false);
 

@@ -3,6 +3,14 @@ import {Combobox, Transition} from '@headlessui/react'
 import {CheckIcon, ChevronUpDownIcon} from '@heroicons/react/20/solid'
 import {Label} from "flowbite-react";
 
+/**
+ * Combobox de sélection des produits
+ * @param allProducts
+ * @param selectedProduct
+ * @param setSelectedProduct
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function ComboboxProducts({allProducts, selectedProduct, setSelectedProduct}) {
     const [selected, setSelected] = useState();
     const [query, setQuery] = useState('');

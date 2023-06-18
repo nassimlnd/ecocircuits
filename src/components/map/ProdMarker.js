@@ -1,6 +1,12 @@
 import React, {useState} from "react";
 import {InfoWindowF, MarkerF} from "@react-google-maps/api";
 
+/**
+ * Marqueur de producteur sur la carte
+ * @param producer
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function ProdMarker({producer}) {
 
     const [open, setOpen] = useState(false);

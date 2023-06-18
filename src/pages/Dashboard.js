@@ -2,6 +2,11 @@ import React from "react";
 import Sidenav from "../components/navigation/Sidenav";
 import ConnectedLayout from "../layouts/ConnectedLayout";
 
+/**
+ * Page du tableau de bord
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Dashboard() {
 
     return (

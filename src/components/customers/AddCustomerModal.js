@@ -5,6 +5,12 @@ import {Button, Spinner, TextInput} from "flowbite-react";
 import {HiMail} from "react-icons/hi";
 import CustomersService from "../../services/CustomersService";
 
+/**
+ * Modal d'ajout d'un client
+ * @param fetchCustomers
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function AddCustomerModal({fetchCustomers}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);

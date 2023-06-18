@@ -1,6 +1,11 @@
 import React from 'react';
 import Vegetables from "../assets/jpg/aboutus/pexels-maria-orlova-4946763.jpg"
 
+/**
+ * Page à propos
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function AboutUs() {
 
     return (

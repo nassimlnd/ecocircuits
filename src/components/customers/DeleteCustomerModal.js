@@ -4,6 +4,13 @@ import {Button, Spinner} from "flowbite-react";
 import {HiTrash} from "react-icons/hi";
 import CustomersService from "../../services/CustomersService";
 
+/**
+ * Modal de suppression d'un client
+ * @param id
+ * @param fetchCustomers
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function DeleteCustomerModal({id, fetchCustomers}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);

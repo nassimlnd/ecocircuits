@@ -7,6 +7,11 @@ import {Badge, Breadcrumb, Table, Tooltip} from "flowbite-react";
 import {HiHome} from "react-icons/hi";
 import OrdersService from "../../../services/OrdersService";
 
+/**
+ * Page des détails d'un produit
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function ProductDetails() {
     const params = useParams();
     const [product, setProduct] = useState({});

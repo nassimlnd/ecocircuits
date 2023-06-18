@@ -7,7 +7,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const LoginForm = lazy(() => import("./components/authentication/LoginForm"));
 const Orders = lazy(() => import('./pages/organisateur/orders/Orders'));
 const TourneesList = lazy(() => import("./pages/TourneesList"));
-const Vehicules = lazy(() => import("./pages/Vehicules"));
+const Vehicules = lazy(() => import("./pages/organisateur/vehicules/Vehicules"));
 const Products = lazy(() => import("./pages/organisateur/products/Products"));
 const Error404 = lazy(() => import("./components/error/404"));
 const Home = lazy(() => import("./pages/Home"));

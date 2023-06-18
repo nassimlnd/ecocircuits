@@ -13,6 +13,11 @@ import AddAddressModal from "../../../components/customers/AddAddressModal";
 import OrdersService from "../../../services/OrdersService";
 import ProdMarker from "../../../components/map/ProdMarker";
 
+/**
+ * Page de création d'une commande
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function CreateOrder() {
     const [loading, setLoading] = useState(false);
 

@@ -8,6 +8,11 @@ import AddProductModal from "../../../components/products/AddProductModal";
 import DeleteProductModal from "../../../components/products/DeleteProductModal";
 import EditProductModal from "../../../components/products/EditProductModal";
 
+/**
+ * Page des produits
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Products() {
 
     var [currentPage, setCurrentPage] = useState(1);

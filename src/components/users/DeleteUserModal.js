@@ -4,6 +4,13 @@ import {Button, Spinner} from "flowbite-react";
 import {HiTrash} from "react-icons/hi";
 import UsersService from "../../services/UsersService";
 
+/**
+ * Modal de suppression d'un utilisateur
+ * @param id
+ * @param fetchUsers
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function DeleteUserModal({id, fetchUsers}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);

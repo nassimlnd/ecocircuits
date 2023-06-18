@@ -5,6 +5,13 @@ import {HiMail, HiPencilAlt} from "react-icons/hi";
 import CustomersService from "../../services/CustomersService";
 import UsersService from "../../services/UsersService";
 
+/**
+ * Modal d'édition d'un utilisateur
+ * @param user
+ * @param fetchUsers
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function EditUserModal({user, fetchUsers}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);

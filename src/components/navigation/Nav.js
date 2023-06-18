@@ -2,6 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Navbar, Dropdown, Avatar} from "flowbite-react";
 import feuille from "../../assets/feuille.png";
 
+/**
+ * Barre de navigation principale lorsque l'utilisateur n'est pas connecté
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Nav() {
     const [activePage, setActivePage] = useState("/");
     const user = JSON.parse(localStorage.getItem("user"));

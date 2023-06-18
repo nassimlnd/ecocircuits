@@ -5,6 +5,11 @@ import {FaShoppingBasket} from "react-icons/fa";
 import AuthService from "../../services/AuthService";
 import SidebarCollapse from "flowbite-react/lib/esm/components/Sidebar/SidebarCollapse";
 
+/**
+ * Barre de navigation latérale
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Sidenav() {
 
     const [activePage, setActivePage] = useState("");

@@ -5,6 +5,14 @@ import {Dialog, Listbox, Transition} from "@headlessui/react";
 import {HiMail} from "react-icons/hi";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/20/solid";
 
+/**
+ * Modal d'ajout d'adresse d'un client
+ * @param fetchCustomers
+ * @param customers
+ * @param oldSelect
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function AddAddressModal({fetchCustomers, customers, oldSelect}) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);

@@ -10,8 +10,12 @@ import AddCustomerModal from "../../../components/customers/AddCustomerModal";
 import DeleteCustomerModal from "../../../components/customers/DeleteCustomerModal";
 import EditCustomerModal from "../../../components/customers/EditCustomerModal";
 
+/**
+ * Page des clients
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Customers() {
-
     const [loading, setLoading] = useState(false);
     const [customers, setCustomers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);

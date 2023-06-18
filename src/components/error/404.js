@@ -1,3 +1,8 @@
+/**
+ * Composant d'erreur 404
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function Error404() {
     return (
         <>

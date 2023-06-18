@@ -3,6 +3,12 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Button } from "flowbite-react";
 import {HiPencilAlt} from "react-icons/hi";
 
+/**
+ * Modal de modification d'un produit
+ * @param product
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function EditProductModal({product}) {
     const [open, setOpen] = useState(false);
 

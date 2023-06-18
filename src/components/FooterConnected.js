@@ -1,6 +1,11 @@
 import React from 'react';
 import {Footer} from "flowbite-react";
 
+/**
+ * Pied de page (connecté)
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function FooterConnected() {
 
     return (

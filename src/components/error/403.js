@@ -1,4 +1,8 @@
 import React from 'react';
+
+/**
+ * Composant d'erreur 403
+ */
 class Error403 extends React.Component {
     render() {
         return (

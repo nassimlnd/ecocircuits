@@ -7,6 +7,11 @@ import EditProductModal from "../../../components/products/EditProductModal";
 import DeleteProductModal from "../../../components/products/DeleteProductModal";
 import ProducersService from "../../../services/ProducersService";
 
+/**
+ * Page des producteurs
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Producers() {
 
     var [currentPage, setCurrentPage] = useState(1);
