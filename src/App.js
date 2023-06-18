@@ -6,7 +6,6 @@ import AuthService from "./services/AuthService";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const LoginForm = lazy(() => import("./components/authentication/LoginForm"));
 const Orders = lazy(() => import('./pages/organisateur/orders/Orders'));
-const TourneesList = lazy(() => import("./pages/TourneesList"));
 const Vehicules = lazy(() => import("./pages/organisateur/vehicules/Vehicules"));
 const Products = lazy(() => import("./pages/organisateur/products/Products"));
 const Error404 = lazy(() => import("./components/error/404"));
@@ -62,7 +61,7 @@ function App() {
                                     <Route path="/orders/pending" element={<Orders/>}/>
                                     <Route path="/orders/:id" element={<OrdersDetails/>}/>
                                     <Route path="/orders/create" element={<CreateOrder/>}/>
-                                    <Route path="/deliveries" element={<TourneesList/>}/>
+                                    {/*<Route path="/deliveries" element={<TourneesList/>}/>*/}
                                     <Route path="/vehicules" element={<Vehicules/>}/>
                                     <Route path="/products" element={<Products/>}/>
                                     <Route path="/products/:id" element={<ProductDetails/>}/>
