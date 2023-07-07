@@ -23,7 +23,7 @@ export default function DeleteProductModal({id}) {
         const response = await ProductsService.deleteProduct(id);
         console.log(response);
         setLoading(false);
-        if (response.status === 200) {
+        if (response.status === 204) {
             setSuccessAnimation(true);
             setTimeout(() => {
                 setOpen(false);
